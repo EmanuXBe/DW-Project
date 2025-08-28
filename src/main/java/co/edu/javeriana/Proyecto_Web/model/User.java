@@ -1,8 +1,11 @@
 package co.edu.javeriana.Proyecto_Web.model;
 
+import java.util.List;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 public class User {
 
@@ -15,14 +18,16 @@ private String name;
 private String password;
 private String type;
 
+@OneToMany (mappedBy = "owner")
+private List<Ship> ship;
+
 
 public User(){
     
 }
 
 
-public User(long id, String name, String password, String type) {
-        this.id = id;
+public User(String name, String password, String type) {
         this.name = name;
         this.password = password;
         this.type = type;

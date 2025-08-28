@@ -1,7 +1,11 @@
 package co.edu.javeriana.Proyecto_Web.model;
 
+import java.util.HashMap;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -17,6 +21,9 @@ private long id;
 private int height;
 
 private int width;
+
+@ManyToOne
+private List<Cell> cell;
 
 
 

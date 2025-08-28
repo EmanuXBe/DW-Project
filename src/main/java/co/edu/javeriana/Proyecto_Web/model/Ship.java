@@ -1,8 +1,15 @@
 package co.edu.javeriana.Proyecto_Web.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 public class Ship {
 
@@ -14,9 +21,17 @@ private long id;
 
 
 private int Xspeed;
+
 private int Yspeed;
+
+@OneToOne
 private Model model;
 
+@OneToOne
+private Cell cell;
+
+@ManyToOne 
+private User owner;
 
 
 public Ship(){
@@ -25,8 +40,7 @@ public Ship(){
 
 
 
-public Ship(long id, int xspeed, int yspeed, Model model) {
-        this.id = id;
+public Ship(int xspeed, int yspeed, Model model) {
         Xspeed = xspeed;
         Yspeed = yspeed;
         this.model = model;

@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cell {
@@ -15,6 +18,12 @@ private long id;
 private char type;
 private int x;
 private int y;
+
+@OneToOne
+private Ship ship;
+
+@ManyToOne
+private Board board;
 
 
 public char getType() {

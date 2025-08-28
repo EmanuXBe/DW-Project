@@ -3,6 +3,7 @@ package co.edu.javeriana.Proyecto_Web.model;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 public class Model {
     
@@ -12,6 +13,20 @@ private long id;
 
 private String name;
 private String color;
+
+
+@OneToOne
+private Ship ship;
+
+public Model(){
+
+}
+
+
+public Model(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
 
 
 public String getName() {
