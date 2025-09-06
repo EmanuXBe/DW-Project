@@ -1,0 +1,15 @@
+2025-09-05 22:42:39.316784-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-232]
+2025-09-05 22:42:39.344384-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "create table [*]user (id bigint not null, name varchar(255), password varchar(255), type varchar(255), primary key (id))"; expected "identifier"; SQL statement:
+create table user (id bigint not null, name varchar(255), password varchar(255), type varchar(255), primary key (id)) [42001-232]
+2025-09-05 22:42:39.368606-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table if exists ship add constraint FKtdob3p3nr9yhrhdxxehnpqa3g foreign key (owner_id) references [*]user"; expected "identifier"; SQL statement:
+alter table if exists ship add constraint FKtdob3p3nr9yhrhdxxehnpqa3g foreign key (owner_id) references user [42001-232]
+2025-09-05 22:42:39.919438-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "insert into [*]user (name,password,type,id) values (?,?,?,?)"; expected "identifier"; SQL statement:
+insert into user (name,password,type,id) values (?,?,?,?) [42001-232]
+2025-09-05 22:42:39.963967-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "drop table if exists [*]user cascade "; expected "identifier"; SQL statement:
+drop table if exists user cascade  [42001-232]

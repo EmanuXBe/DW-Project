@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+@Entity
 public class Ship {
 
 
@@ -37,7 +39,6 @@ private User owner;
 public Ship(){
 
 }
-
 
 
 public Ship(int xspeed, int yspeed, Model model) {
