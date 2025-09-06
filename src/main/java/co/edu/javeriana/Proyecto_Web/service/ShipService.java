@@ -14,6 +14,10 @@ public class ShipService {
     private ShipRepository shipRepository;
 
     public List<Ship> listShips() {
-       return shipRepository.findAll(); 
+        return shipRepository.findAll();
+    }
+
+    public Ship searchShip(Long id) {
+        return shipRepository.findById(id).orElse(null);
     }
 }
