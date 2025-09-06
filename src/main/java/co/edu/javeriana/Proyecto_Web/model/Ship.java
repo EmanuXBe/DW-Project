@@ -20,6 +20,8 @@ public class Ship {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private long id;
 
+private String Name;
+
 
 
 private int Xspeed;
@@ -36,18 +38,33 @@ private Cell cell;
 private User owner;
 
 
+
+
+
 public Ship(){
 
 }
 
 
-public Ship(int xspeed, int yspeed, Model model) {
+public Ship(String name,int xspeed, int yspeed, Model model, User owner) {
+        Name = name;
         Xspeed = xspeed;
         Yspeed = yspeed;
         this.model = model;
+        this.owner = owner;
     }
 
     
+    
+public void setName(String name) {
+    Name = name;
+}
+
+
+public String getName() {
+    return Name;
+}
+
 
 public int getXspeed() {
     return Xspeed;
@@ -76,6 +93,15 @@ public Model getModel() {
 
 public void setModel(Model model) {
     this.model = model;
+}
+
+public void setOwner(User owner) {
+    this.owner = owner;
+}
+
+
+public User getOwner() {
+    return owner;
 }
 
 
