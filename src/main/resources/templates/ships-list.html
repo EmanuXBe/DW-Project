@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Ship List</title>
+</head>
+
+<body>
+    <h1>Lista de Barcos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Modelo</th>
+                <th>Dueño</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ship : ${shipList}">
+                <td th:text="${ship.name}"></td>
+                <td th:text="${ship.model}"></td>
+                <td th:text="${ship.owner}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

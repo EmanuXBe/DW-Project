@@ -24,10 +24,12 @@ public class ShipController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/list")
-    void displayShips() {
+    public ModelAndView displayShips() {
         log.info("Listing ships");
         List<Ship> ships = shipService.listShips();
-        // ModelAndView modelAndView = new ModelAndView(" ships-list");
+        ModelAndView modelAndView = new ModelAndView("ships-list");
+        modelAndView.addObject("shipList", ships);
+        return modelAndView;
     }
 
 }
