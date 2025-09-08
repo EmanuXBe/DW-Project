@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
-import co.edu.javeriana.Proyecto_Web.model.Ship;
 
 import co.edu.javeriana.Proyecto_Web.service.ShipService;
 
@@ -29,7 +28,7 @@ public class ShipController {
     public ModelAndView displayShips() {
         log.info("Listing ships");
         List<ShipDTO> ships = shipService.listShips();
-        ModelAndView modelAndView = new ModelAndView("ships-list");
+        ModelAndView modelAndView = new ModelAndView("ship-list");
         modelAndView.addObject("shipList", ships);
         return modelAndView;
     }

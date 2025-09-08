@@ -12,6 +12,12 @@ public class ShipMapper {
         shipDTO.setName(ship.getName());
         shipDTO.setXspeed(ship.getXspeed());
         shipDTO.setYspeed(ship.getYspeed());
+        if (ship.getModel() != null) {
+            shipDTO.setModel(ship.getModel().getName());
+        }
+        if (ship.getOwner() != null) {
+            shipDTO.setOwner(ship.getOwner().getName());
+        }
 
         return shipDTO;
     }

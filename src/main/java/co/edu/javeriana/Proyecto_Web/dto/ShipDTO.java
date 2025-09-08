@@ -5,16 +5,19 @@ public class ShipDTO {
     private String name;
     private int xspeed;
     private int yspeed;
-    
+    private String model;
+    private String owner;
+
     public ShipDTO() {
     }
 
-    public ShipDTO(long id, String name, int xspeed, int yspeed, Long modelId, String modelName, Long ownerId,
-            String ownerName) {
+    public ShipDTO(long id, String name, int xspeed, int yspeed, String model, String owner) {
         this.id = id;
         this.name = name;
         this.xspeed = xspeed;
         this.yspeed = yspeed;
+        this.model = model;
+        this.owner = owner;
     }
 
     public long getId() {
@@ -48,5 +51,21 @@ public class ShipDTO {
     public void setYspeed(int yspeed) {
         this.yspeed = yspeed;
     }
-    
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
 }
