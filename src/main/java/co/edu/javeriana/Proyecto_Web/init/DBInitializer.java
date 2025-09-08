@@ -35,7 +35,7 @@ public class DBInitializer implements CommandLineRunner {
         for (int i = 1; i < 10; i++) {
             User usuario = userRepository.save(new User("Juan" + i, "12345" + i, "Usuario"));
             Model modelo = new Model("Galviz"+i, "Negro");
-            Ship ship = new Ship("PerlaNegra"+i,2,2,modelo, usuario);
+            Ship ship = new Ship("Emavemaria"+i,2,2,modelo, usuario);
             userRepository.save(usuario);
             modelRepository.save(modelo);
             shipRepository.save(ship);

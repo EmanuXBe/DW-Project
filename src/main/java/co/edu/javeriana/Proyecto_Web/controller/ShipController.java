@@ -16,7 +16,7 @@ import co.edu.javeriana.Proyecto_Web.model.Ship;
 import co.edu.javeriana.Proyecto_Web.service.ShipService;
 
 @Controller
-@RequestMapping("/ships")
+@RequestMapping("/ship") //se modifico a singular para que quede mejor
 public class ShipController {
 
     @Autowired

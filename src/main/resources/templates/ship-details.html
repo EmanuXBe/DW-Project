@@ -7,7 +7,14 @@
 </head>
 
 <body>
-
+    <h1>Ship Details</h1>
+    <ul>
+        <li th:text="${ship.name}"></li>
+        <li th:text="${ship.model}"></li>
+        <li th:text="${ship.owner}"></li>
+    </ul>
+    <p th:text="|${ship.name} ${ship.model} ${ship.owner}|"></p>
+    <a th:href="@{/ship/list}">Volver</a>
 </body>
 
 </html>
