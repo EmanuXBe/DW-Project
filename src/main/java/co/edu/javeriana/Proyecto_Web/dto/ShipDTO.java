@@ -5,12 +5,6 @@ public class ShipDTO {
     private String name;
     private int xspeed;
     private int yspeed;
-
-    private Long modelId;
-    private String modelName;
-
-    private Long ownerId;
-    private String ownerName;
     
     public ShipDTO() {
     }
