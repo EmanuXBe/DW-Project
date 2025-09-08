@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Ship List</title>
+</head>
+
+<body>
+    <h1>Lista de Barcos</h1>
+
+
+     <form method="get" action="#" th:action="@{/ship/search}">
+        <label for="txtSearchText">Buscar por modelo</label>
+        <input type="text" name="searchText" id="txtSearchText">
+        <button type="submit">Buscar</button>
+
+
+    </form>
+
+    <p><a th:href="@{/ship/create}">Create Ship</a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Modelo</th>
+                <th>Dueño</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ship : ${shipList}">
+                <td th:text="${ship.name}"></td>
+                <td th:text="${ship.model}"></td>
+                <td th:text="${ship.owner}"></td>
+                <td>
+                    <a th:href="@{/ship/view/{id}(id=${ship.id})}">View</a>
+                </td>
+                <td>
+                    <a th:href="@{/ship/edit/{id}(id=${ship.id})}">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/ship/delete/{id}(id=${ship.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

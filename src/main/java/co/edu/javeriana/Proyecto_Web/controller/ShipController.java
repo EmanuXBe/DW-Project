@@ -72,4 +72,18 @@ public class ShipController {
         shipService.delete(id);
         return new RedirectView("/ship/list");
     }
+
+    @GetMapping("/search")
+    public ModelAndView searchShips(@RequestParam(required = false) String searchText) {
+        log.info("Listing ships");
+        List<ShipDTO> ships;
+        if(searchText== null || searchText.trim().equals("")){
+        ships = shipService.listShips();
+        } else {
+            ships = shipService.searchShipByModel_Name(searchText);
+        }
+        ModelAndView modelAndView = new ModelAndView("ship-search");
+        modelAndView.addObject("shipList", ships);
+        return modelAndView;
+    }
 }

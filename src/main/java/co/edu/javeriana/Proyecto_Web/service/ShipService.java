@@ -96,4 +96,10 @@ public class ShipService {
         ship.setOwner(owner);
         shipRepository.save(ship);
     }
+
+    public List<ShipDTO> searchShipByModel_Name(String searchText) {
+        return shipRepository.findAllByModel_NameStartingWithIgnoreCase(searchText).stream()
+                .map(ShipMapper::toDto)
+                .toList();
+    }
 }
