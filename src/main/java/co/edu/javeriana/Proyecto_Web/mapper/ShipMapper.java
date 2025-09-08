@@ -1,4 +1,4 @@
-package co.edu.javeriana.mapper;
+package co.edu.javeriana.Proyecto_Web.mapper;
 
 import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
 import co.edu.javeriana.Proyecto_Web.model.Ship;

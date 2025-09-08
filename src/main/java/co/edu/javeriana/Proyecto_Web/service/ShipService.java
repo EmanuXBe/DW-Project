@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
+import co.edu.javeriana.Proyecto_Web.mapper.ShipMapper;
 import co.edu.javeriana.Proyecto_Web.model.Ship;
 
 import co.edu.javeriana.Proyecto_Web.repository.ShipRepository;
-import co.edu.javeriana.mapper.ShipMapper;
 
 @Service
 public class ShipService {
