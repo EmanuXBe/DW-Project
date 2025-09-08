@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ship Model Edit</title>
+    <style>
+        ul { list-style: none; padding: 0; }
+        li { margin: 4px 0; }
+    </style>
+    </head>
+<body>
+    <form action="/ship/model/save" method="post">
+        <input type="hidden" name="shipId" th:value="${shipModel.shipId}" />
+        <ul>
+            <li th:each="m : ${allModels}">
+                <input type="radio" name="modelId" th:value="${m.id}" th:checked="${shipModel.modelId} == ${m.id}" />
+                <label th:text="|${m.name} - ${m.color}|"></label>
+            </li>
+        </ul>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+

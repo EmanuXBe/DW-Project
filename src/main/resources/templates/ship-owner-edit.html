@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ship Owner Edit</title>
+    <style>
+        ul { list-style: none; padding: 0; }
+        li { margin: 4px 0; }
+    </style>
+    </head>
+<body>
+    <form action="/ship/owner/save" method="post">
+        <input type="hidden" name="shipId" th:value="${shipOwner.shipId}" />
+        <ul>
+            <li th:each="u : ${allUsers}">
+                <input type="radio" name="ownerId" th:value="${u.id}" th:checked="${shipOwner.ownerId} == ${u.id}" />
+                <label th:text="${u.name}"></label>
+            </li>
+        </ul>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+

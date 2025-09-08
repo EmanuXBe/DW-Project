@@ -12,6 +12,7 @@
     
 </head>
 <body>
+    <h1>Ship Edit</h1>
     <form action="/ship/save" method="post">
         <input type="hidden" id="id" name="id" th:value="${ship.id}">
 
@@ -35,5 +36,10 @@
             <a th:href="@{/ship/list}">Cancel</a>
         </div>
     </form>
+    <p th:if="${ship.id} != null">
+        <a th:href="@{/ship/model/edit/{id}(id=${ship.id})}">Editar modelo</a>
+        
+        <a th:href="@{/ship/owner/edit/{id}(id=${ship.id})}">Editar dueño</a>
+    </p>
 </body>
 </html>

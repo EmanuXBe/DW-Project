@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
+import co.edu.javeriana.Proyecto_Web.dto.ShipModelDTO;
+import co.edu.javeriana.Proyecto_Web.dto.ShipOwnerDTO;
 import co.edu.javeriana.Proyecto_Web.mapper.ShipMapper;
 import co.edu.javeriana.Proyecto_Web.model.Model;
 import co.edu.javeriana.Proyecto_Web.model.Ship;
 
 import co.edu.javeriana.Proyecto_Web.repository.ShipRepository;
 import co.edu.javeriana.Proyecto_Web.repository.ModelRepository;
+import co.edu.javeriana.Proyecto_Web.repository.UserRepository;
 
 @Service
 public class ShipService {
@@ -21,6 +24,9 @@ public class ShipService {
 
     @Autowired
     private ModelRepository modelRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<ShipDTO> listShips() {
         return shipRepository.findAll().stream()
@@ -64,5 +70,30 @@ public class ShipService {
 
     public void delete(Long id) {
         shipRepository.deleteById(id);
+    }
+
+    // Association helpers following professor's pattern
+    public Optional<ShipModelDTO> getShipModel(Long shipId) {
+        return shipRepository.findById(shipId)
+                .map(ship -> new ShipModelDTO(ship.getId(), ship.getModel() != null ? ship.getModel().getId() : null));
+    }
+
+    public void updateShipModel(ShipModelDTO dto) {
+        Ship ship = shipRepository.findById(dto.getShipId()).orElseThrow();
+        Model model = (dto.getModelId() == null) ? null : modelRepository.findById(dto.getModelId()).orElseThrow();
+        ship.setModel(model);
+        shipRepository.save(ship);
+    }
+
+    public Optional<ShipOwnerDTO> getShipOwner(Long shipId) {
+        return shipRepository.findById(shipId)
+                .map(ship -> new ShipOwnerDTO(ship.getId(), ship.getOwner() != null ? ship.getOwner().getId() : null));
+    }
+
+    public void updateShipOwner(ShipOwnerDTO dto) {
+        Ship ship = shipRepository.findById(dto.getShipId()).orElseThrow();
+        var owner = (dto.getOwnerId() == null) ? null : userRepository.findById(dto.getOwnerId()).orElseThrow();
+        ship.setOwner(owner);
+        shipRepository.save(ship);
     }
 }
