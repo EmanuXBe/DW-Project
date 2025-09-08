@@ -12,28 +12,27 @@
     
 </head>
 <body>
-    <h1 th:text="${ship.id} != 0 ? 'Editar Barco' : 'Crear Barco'"></h1>
-    <form th:action="@{/ship/save}" th:object="${ship}" method="post">
-        <input type="hidden" th:field="*{id}" />
+    <form action="/ship/save" method="post">
+        <input type="hidden" id="id" name="id" th:value="${ship.id}">
 
-        <label for="name">Nombre del barco</label>
-        <input id="name" type="text" th:field="*{name}" required />
+        <label for="name">Ship Name:</label>
+        <input type="text" id="name" name="name" th:value="${ship.name}">
 
-        <label for="xspeed">Velocidad X</label>
-        <input id="xspeed" type="number" th:field="*{xspeed}" required />
+        <label for="xspeed">X Speed:</label>
+        <input type="number" id="xspeed" name="xspeed" th:value="${ship.xspeed}">
 
-        <label for="yspeed">Velocidad Y</label>
-        <input id="yspeed" type="number" th:field="*{yspeed}" required />
+        <label for="yspeed">Y Speed:</label>
+        <input type="number" id="yspeed" name="yspeed" th:value="${ship.yspeed}">
 
-        <label for="model">Modelo (nombre)</label>
-        <input id="model" type="text" th:field="*{model}" required />
+        <label for="model">Model Name:</label>
+        <input type="text" id="model" name="model" th:value="${ship.model}">
 
-        <label for="color">Color del modelo</label>
-        <input id="color" type="text" th:field="*{color}" required />
+        <label for="color">Model Color:</label>
+        <input type="text" id="color" name="color" th:value="${ship.color}">
 
         <div class="actions">
-            <button type="submit">Guardar</button>
-            <a th:href="@{/ship/list}">Cancelar</a>
+            <button type="submit">Save</button>
+            <a th:href="@{/ship/list}">Cancel</a>
         </div>
     </form>
 </body>
