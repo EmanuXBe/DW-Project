@@ -6,6 +6,7 @@ public class ShipDTO {
     private int xspeed;
     private int yspeed;
     private String model;
+    private String color;
     private String owner;
 
     public ShipDTO() {
@@ -58,6 +59,14 @@ public class ShipDTO {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getOwner() {

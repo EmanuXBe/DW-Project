@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Ship</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        label { display:block; margin-top: 8px; }
+        input { padding: 4px; }
+        .actions { margin-top: 12px; }
+    </style>
+    
+</head>
+<body>
+    <h1 th:text="${ship.id} != 0 ? 'Editar Barco' : 'Crear Barco'"></h1>
+    <form th:action="@{/ship/save}" th:object="${ship}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Nombre del barco</label>
+        <input id="name" type="text" th:field="*{name}" required />
+
+        <label for="xspeed">Velocidad X</label>
+        <input id="xspeed" type="number" th:field="*{xspeed}" required />
+
+        <label for="yspeed">Velocidad Y</label>
+        <input id="yspeed" type="number" th:field="*{yspeed}" required />
+
+        <label for="model">Modelo (nombre)</label>
+        <input id="model" type="text" th:field="*{model}" required />
+
+        <label for="color">Color del modelo</label>
+        <input id="color" type="text" th:field="*{color}" required />
+
+        <div class="actions">
+            <button type="submit">Guardar</button>
+            <a th:href="@{/ship/list}">Cancelar</a>
+        </div>
+    </form>
+</body>
+</html>

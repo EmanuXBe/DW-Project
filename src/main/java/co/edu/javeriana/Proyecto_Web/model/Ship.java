@@ -20,15 +20,15 @@ public class Ship {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private long id;
 
-private String Name;
+private String name;
 
 
 
-private int Xspeed;
+private int xspeed;
 
-private int Yspeed;
+private int yspeed;
 
-@OneToOne
+@ManyToOne
 private Model model;
 
 @OneToOne
@@ -47,9 +47,9 @@ public Ship(){
 
 
 public Ship(String name,int xspeed, int yspeed, Model model, User owner) {
-        Name = name;
-        Xspeed = xspeed;
-        Yspeed = yspeed;
+        this.name = name;
+        this.xspeed = xspeed;
+        this.yspeed = yspeed;
         this.model = model;
         this.owner = owner;
     }
@@ -57,7 +57,7 @@ public Ship(String name,int xspeed, int yspeed, Model model, User owner) {
     
     
 public void setName(String name) {
-    Name = name;
+    this.name = name;
 }
 
 public Long getId() {
@@ -69,29 +69,29 @@ public void setId(Long id) {
 }
 
 public String getName() {
-    return Name;
+    return name;
 }
 
 
 
 
 public int getXspeed() {
-    return Xspeed;
+    return xspeed;
 }
 
 
 public void setXspeed(int xspeed) {
-    Xspeed = xspeed;
+    this.xspeed = xspeed;
 }
 
 
 public int getYspeed() {
-    return Yspeed;
+    return yspeed;
 }
 
 
 public void setYspeed(int yspeed) {
-    Yspeed = yspeed;
+    this.yspeed = yspeed;
 }
 
 

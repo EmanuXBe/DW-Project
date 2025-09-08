@@ -14,6 +14,7 @@ public class ShipMapper {
         shipDTO.setYspeed(ship.getYspeed());
         if (ship.getModel() != null) {
             shipDTO.setModel(ship.getModel().getName());
+            shipDTO.setColor(ship.getModel().getColor());
         }
         if (ship.getOwner() != null) {
             shipDTO.setOwner(ship.getOwner().getName());
