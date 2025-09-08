@@ -8,7 +8,7 @@
 
 <body>
     <h1>Lista de Barcos</h1>
-
+    <p><a th:href="@{/ship/create}">Create Ship</a></p>
     <table>
         <thead>
             <tr>
@@ -16,6 +16,8 @@
                 <th>Modelo</th>
                 <th>Dueño</th>
                 <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +27,12 @@
                 <td th:text="${ship.owner}"></td>
                 <td>
                     <a th:href="@{/ship/view/{id}(id=${ship.id})}">View</a>
+                </td>
+                <td>
+                    <a th:href="@{/ship/edit/{id}(id=${ship.id})}">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/ship/delete/{id}(id=${ship.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>

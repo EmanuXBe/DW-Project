@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
 import co.edu.javeriana.Proyecto_Web.model.Ship;
 
 import co.edu.javeriana.Proyecto_Web.service.ShipService;
@@ -27,7 +28,7 @@ public class ShipController {
     @GetMapping("/list")
     public ModelAndView displayShips() {
         log.info("Listing ships");
-        List<Ship> ships = shipService.listShips();
+        List<ShipDTO> ships = shipService.listShips();
         ModelAndView modelAndView = new ModelAndView("ships-list");
         modelAndView.addObject("shipList", ships);
         return modelAndView;
@@ -35,7 +36,7 @@ public class ShipController {
 
     @GetMapping("/view/{idShip}")
     public ModelAndView searchShip(@PathVariable("idShip") Long id) {
-        Ship ship = shipService.searchShip(id);
+        ShipDTO ship = shipService.searchShip(id).orElseThrow();
         ModelAndView modelAndView = new ModelAndView("ship-details");
         modelAndView.addObject("ship", ship);
         return modelAndView;

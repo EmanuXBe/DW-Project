@@ -1,23 +1,30 @@
 package co.edu.javeriana.Proyecto_Web.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
 import co.edu.javeriana.Proyecto_Web.model.Ship;
 
 import co.edu.javeriana.Proyecto_Web.repository.ShipRepository;
+import co.edu.javeriana.mapper.ShipMapper;
 
 @Service
 public class ShipService {
     @Autowired
     private ShipRepository shipRepository;
 
-    public List<Ship> listShips() {
-        return shipRepository.findAll();
+    public List<ShipDTO> listShips() {
+        return shipRepository.findAll().stream()
+                .map(ShipMapper::toDto)
+                .toList();
     }
 
-    public Ship searchShip(Long id) {
-        return shipRepository.findById(id).orElse(null);
+    public Optional<ShipDTO> searchShip(Long id) {
+        return shipRepository.findById(id)
+                .map(ShipMapper::toDto);
     }
 }
