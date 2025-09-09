@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import co.edu.javeriana.Proyecto_Web.model.User;
 import co.edu.javeriana.Proyecto_Web.dto.UserDTO;
 import co.edu.javeriana.Proyecto_Web.mapper.UserMapper;
@@ -28,7 +27,7 @@ public class UserService {
         return userRepository.findById(id).map(UserMapper::toDto);
     }
 
-    public void save(UserDTO dto) {
+    public UserDTO createUser(UserDTO dto) {
         User user;
         if (dto.getId() != null && dto.getId() != 0) {
             user = userRepository.findById(dto.getId()).orElseGet(User::new);
@@ -39,7 +38,7 @@ public class UserService {
         user.setName(dto.getName());
         user.setType(dto.getType());
         user.setPassword(dto.getPassword());
-        userRepository.save(user);
+        return UserMapper.toDto(userRepository.save(user));
     }
 
     public void delete(Long id) {
@@ -51,5 +50,16 @@ public class UserService {
                 .map(UserMapper::toDto)
                 .toList();
     }
-}
 
+    public UserDTO updateUser(UserDTO dto) {
+        if (dto.getId() == null || dto.getId() == 0) {
+            throw new IllegalArgumentException("User ID must be provided for update.");
+        }
+        User user = userRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + dto.getId()));
+        user.setName(dto.getName());
+        user.setType(dto.getType());
+        user.setPassword(dto.getPassword());
+        return UserMapper.toDto(userRepository.save(user));
+    }
+}

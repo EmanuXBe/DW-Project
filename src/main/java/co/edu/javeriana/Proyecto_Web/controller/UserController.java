@@ -13,9 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import co.edu.javeriana.Proyecto_Web.dto.UserDTO;
 import co.edu.javeriana.Proyecto_Web.service.UserService;
 
-
-
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
@@ -24,56 +22,45 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/list")
-    public ModelAndView displayUsers() {
+    public List<UserDTO> displayUsers() {
         log.info("Listing users");
-        List<UserDTO> users = userService.listUsers();
-        ModelAndView mv = new ModelAndView("user-list");
-        mv.addObject("userList", users);
-        return mv;
+        return userService.listUsers();
     }
 
     @GetMapping("/view/{id}")
-    public ModelAndView viewUser(@PathVariable("id") Long id) {
-        UserDTO user = userService.searchUser(id).orElseThrow();
-        ModelAndView mv = new ModelAndView("user-details");
-        mv.addObject("user", user);
-        return mv;
+    public UserDTO viewUser(@PathVariable("id") Long id) {
+        return userService.searchUser(id).orElseThrow();
     }
 
     @GetMapping("/create")
-    public ModelAndView createUserForm() {
-        ModelAndView mv = new ModelAndView("user-edit");
-        mv.addObject("user", new UserDTO());
-        return mv;
+    public UserDTO createUserPrototype() {
+        return new UserDTO();
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView editUserForm(@PathVariable("id") Long id) {
-        UserDTO user = userService.searchUser(id).orElseThrow();
-        ModelAndView mv = new ModelAndView("user-edit");
-        mv.addObject("user", user);
-        return mv;
+    public UserDTO editUserData(@PathVariable("id") Long id) {
+        return userService.searchUser(id).orElseThrow();
     }
 
-    @PostMapping("/save")
-    public RedirectView saveUser(@ModelAttribute("user") UserDTO dto) {
-        userService.save(dto);
-        return new RedirectView("/user/list");
+    @PostMapping
+    public UserDTO createUser(@RequestBody UserDTO dto) {
+        return userService.createUser(dto);
     }
 
-    @GetMapping("/delete/{id}")
-    public RedirectView deleteUser(@PathVariable("id") Long id) {
+    @PutMapping
+    public UserDTO updateUser(@RequestBody UserDTO dto) {
+        return userService.updateUser(dto);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
-        return new RedirectView("/user/list");
     }
 
     @GetMapping("/search")
-    public ModelAndView searchUsers(@RequestParam(required = false) String searchText) {
-        List<UserDTO> users = (searchText == null || searchText.trim().isEmpty())
+    public List<UserDTO> searchUsers(@RequestParam(required = false) String searchText) {
+        return (searchText == null || searchText.trim().isEmpty())
                 ? userService.listUsers()
                 : userService.searchUsersByName(searchText);
-        ModelAndView mv = new ModelAndView("user-search");
-        mv.addObject("userList", users);
-        return mv;
     }
 }

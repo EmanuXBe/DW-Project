@@ -1,27 +1,15 @@
 package co.edu.javeriana.Proyecto_Web.controller;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
+import org.springframework.web.bind.annotation.*;
 import co.edu.javeriana.Proyecto_Web.dto.ShipDTO;
-
 import co.edu.javeriana.Proyecto_Web.service.ShipService;
-import org.springframework.web.bind.annotation.RequestParam;
 
-
-@Controller
-@RequestMapping("/ship") //se modifico a singular para que quede mejor
+@RestController
+@RequestMapping("/ship")
 public class ShipController {
 
     @Autowired
@@ -29,61 +17,45 @@ public class ShipController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    @GetMapping("/list")
-    public ModelAndView displayShips() {
+    @GetMapping
+    public List<ShipDTO> displayShips() {
         log.info("Listing ships");
-        List<ShipDTO> ships = shipService.listShips();
-        ModelAndView modelAndView = new ModelAndView("ship-list");
-        modelAndView.addObject("shipList", ships);
-        return modelAndView;
+        return shipService.listShips();
     }
 
-    @GetMapping("/view/{idShip}")
-    public ModelAndView searchShip(@PathVariable("idShip") Long id) {
-        ShipDTO ship = shipService.searchShip(id).orElseThrow();
-        ModelAndView modelAndView = new ModelAndView("ship-details");
-        modelAndView.addObject("ship", ship);
-        return modelAndView;
+    @GetMapping("/{id}")
+    public ShipDTO viewShip(@PathVariable Long id) {
+        return shipService.searchShip(id).orElseThrow();
     }
 
     @GetMapping("/create")
-    public ModelAndView createShipForm() {
-        ModelAndView modelAndView = new ModelAndView("ship-edit");
-        modelAndView.addObject("ship", new ShipDTO());
-        return modelAndView;
+    public ShipDTO createShipPrototype() {
+        return new ShipDTO();
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView editShipForm(@PathVariable("id") Long id) {
-        ShipDTO ship = shipService.searchShip(id).orElseThrow();
-        ModelAndView modelAndView = new ModelAndView("ship-edit");
-        modelAndView.addObject("ship", ship);
-        return modelAndView;
+    @PostMapping
+    public ShipDTO createShip(@RequestBody ShipDTO dto) {
+        dto.setId(0L);
+        shipService.save(dto);
+        return dto;
     }
 
-    @PostMapping("/save")
-    public RedirectView saveShip(@ModelAttribute("ship") ShipDTO shipDTO){
-        shipService.save(shipDTO);
-        return new RedirectView("/ship/list");
+    @PutMapping("/{id}")
+    public ShipDTO updateShip(@PathVariable Long id, @RequestBody ShipDTO dto) {
+        dto.setId(id);
+        shipService.save(dto);
+        return dto;
     }
 
-    @GetMapping("/delete/{id}")
-    public RedirectView deleteShip(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteShip(@PathVariable Long id) {
         shipService.delete(id);
-        return new RedirectView("/ship/list");
     }
 
     @GetMapping("/search")
-    public ModelAndView searchShips(@RequestParam(required = false) String searchText) {
-        log.info("Listing ships");
-        List<ShipDTO> ships;
-        if(searchText== null || searchText.trim().equals("")){
-        ships = shipService.listShips();
-        } else {
-            ships = shipService.searchShipByModel_Name(searchText);
-        }
-        ModelAndView modelAndView = new ModelAndView("ship-search");
-        modelAndView.addObject("shipList", ships);
-        return modelAndView;
+    public List<ShipDTO> searchShips(@RequestParam(required = false) String searchText) {
+        return (searchText == null || searchText.trim().isEmpty())
+                ? shipService.listShips()
+                : shipService.searchShipByModel_Name(searchText);
     }
 }

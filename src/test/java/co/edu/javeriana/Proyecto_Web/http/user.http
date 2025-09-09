@@ -1,0 +1,22 @@
+@baseUrl=http://localhost:8080
+
+### Request
+GET {{baseUrl}}/user/list
+
+###
+
+GET {{baseUrl}}/user/view/30000
+
+###
+
+### Response
+
+PUT  {{baseUrl}}/user
+Content-Type: application/json
+
+{   
+    "id": 3,
+    "name": "JCESUNAPERRA",
+    "type": "Usuario",
+    "password": null
+}
