@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Modelos</title>
+</head>
+<body>
+<h1>Buscar Modelos</h1>
+
+<form method="get" th:action="@{/model/search}">
+  <label for="txtSearch">Nombre</label>
+  <input type="text" id="txtSearch" name="searchText"/>
+  <button type="submit">Buscar</button>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="m : ${modelList}">
+    <td th:text="${m.name}"></td>
+    <td>
+      <a th:href="@{/model/view/{id}(id=${m.id})}">Ver</a>
+      <a th:href="@{/model/edit/{id}(id=${m.id})}">Editar</a>
+      <a th:href="@{/model/delete/{id}(id=${m.id})}">Eliminar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

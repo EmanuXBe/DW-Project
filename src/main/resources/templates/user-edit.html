@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <style>
+        label { display:block; margin-top: 8px; }
+        input { padding: 4px; }
+        .actions { margin-top: 12px; }
+    </style>
+</head>
+<body>
+<h1>User Edit</h1>
+<form action="/user/save" method="post">
+    <input type="hidden" name="id" th:value="${user.id}" />
+
+    <label for="name">Name:</label>
+    <input id="name" name="name" type="text" th:value="${user.name}" />
+
+    <label for="type">Type:</label>
+    <input id="type" name="type" type="text" th:value="${user.type}" />
+
+    <label for="password">Password:</label>
+    <input id="password" name="password" type="text" th:value="${user.password}" />
+
+    <div class="actions">
+        <button type="submit">Save</button>
+        <a th:href="@{/user/list}">Cancel</a>
+    </div>
+</form>
+</body>
+</html>

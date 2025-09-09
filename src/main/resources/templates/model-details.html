@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Model Details</title>
+</head>
+<body>
+<h1>Detalle del Modelo</h1>
+
+<ul>
+  <li><b>Nombre:</b> <span th:text="${model.name}"></span></li>
+  <li><b>Color:</b> <span th:text="${model.Color}"></span></li>
+</ul>
+
+<a th:href="@{/model/list}">Volver</a>
+</body>
+</html>

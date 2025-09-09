@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Model List</title>
+</head>
+<body>
+<h1>Lista de Modelos</h1>
+
+<p>
+  <a th:href="@{/model/create}">Crear Modelo</a> |
+  <a th:href="@{/model/search}">Buscar</a>
+</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>Nombre</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="m : ${modelList}">
+    <td th:text="${m.name}">name</td>
+    <td>
+      <a th:href="@{/model/view/{id}(id=${m.id})}">Ver</a>
+      <a th:href="@{/model/edit/{id}(id=${m.id})}">Editar</a>
+      <a th:href="@{/model/delete/{id}(id=${m.id})}">Eliminar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

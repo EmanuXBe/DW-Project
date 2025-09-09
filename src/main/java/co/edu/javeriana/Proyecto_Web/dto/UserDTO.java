@@ -3,12 +3,18 @@ package co.edu.javeriana.Proyecto_Web.dto;
 public class UserDTO {
     private Long id;
     private String name;
+    private String type;
+    private String password;
 
     public UserDTO() {}
 
-    public UserDTO(Long id, String name) {
+    
+
+    public UserDTO(Long id, String name, String type, String password) {
         this.id = id;
         this.name = name;
+        this.type = type;
+        this.password = password;
     }
 
     public Long getId() {
@@ -25,6 +31,23 @@ public class UserDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() { 
+        return type; 
+    
+    }
+
+    public void setType(String type) {
+         this.type = type; 
+        }
+
+
+    public String getPassword() { 
+        return password; 
+    }
+    public void setPassword(String password) { 
+        this.password = password; 
     }
 }
 
