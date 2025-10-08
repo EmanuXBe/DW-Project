@@ -7,10 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Board {
     
 @Id
@@ -26,25 +32,10 @@ private int width;
 @OneToMany
 private List<Cell> cell;
 
-
-
-public int getHeight() {
-    return height;
-}
-
-
-public void setHeight(int height) {
+public Board(int height, int width, List<Cell> cell) {
     this.height = height;
-}
-
-
-public int getWidth() {
-    return width;
-}
-
-
-public void setWidth(int width) {
     this.width = width;
-}
+    this.cell = cell;
 
+    }
 }

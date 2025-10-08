@@ -1,30 +1,18 @@
 package co.edu.javeriana.Proyecto_Web.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShipOwnerDTO {
     private Long shipId;
     private Long ownerId;
 
-    public ShipOwnerDTO() {}
-
-    public ShipOwnerDTO(Long shipId, Long ownerId) {
-        this.shipId = shipId;
-        this.ownerId = ownerId;
-    }
-
-    public Long getShipId() {
-        return shipId;
-    }
-
-    public void setShipId(Long shipId) {
-        this.shipId = shipId;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
+    
 }
 
