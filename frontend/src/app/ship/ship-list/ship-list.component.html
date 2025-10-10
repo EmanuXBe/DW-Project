@@ -1,0 +1,6 @@
+<h1>Ships List</h1>
+<ul>
+    @for(s of ships(); track $index) { 
+        <li (click)="shipSelected(s)" >{{$index}} {{s.name}} {{s.model}} {{s.color}}</li>
+    }
+</ul>

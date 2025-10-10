@@ -1,0 +1,8 @@
+<h1>User List</h1>
+<ul>
+
+    @for(u of users(); track $index) { 
+        <li (click)="userSelected(u)" >{{$index}} {{u.name}} {{u.type}}</li>
+    }
+
+</ul>

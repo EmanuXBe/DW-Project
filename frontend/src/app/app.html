@@ -1,0 +1,11 @@
+<app-model-view [model]="selectedModel()"></app-model-view>
+
+<app-model-list (modelClicked)="selectModel($event)"></app-model-list>
+
+<app-user-view [user]="selectedUser()"></app-user-view>
+
+<app-user-list (userClicked)="selectUser($event)"></app-user-list>
+
+<app-ship-view [ship]="selectedShip()"></app-ship-view>
+
+<app-ship-list (shipClicked)="selectShip($event)"></app-ship-list>

@@ -1,0 +1,8 @@
+<h1>Model List</h1>
+
+<ul>
+
+    @for(m of models(); track $index) { 
+        <li (click)="modelSelected(m)" >{{$index}} {{m.name}} {{m.color}}</li>
+    }
+</ul>
