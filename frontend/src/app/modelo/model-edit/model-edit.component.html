@@ -1,7 +1,16 @@
 <form (ngSubmit)="onSubmit()">
-    <input type="number" name="modelId" id="txtId" [(ngModel)]="modelo().id">
-    <input type="text" name="modelName" id="txtName" [(ngModel)]="modelo().name">
-    <input type="text" name="modelColor" id="txtColor" [(ngModel)]="modelo().color">
+    <input type="number" name="modelId" #modelId="ngModel" id="txtId" [(ngModel)]="modelo().id" required>
+    @if(modelId.invalid && modelId.touched) {
+    <p class="Error">Model ID is required.</p>
+    }
+    <input type="text" name="modelName" #modelName="ngModel" id="txtName" [(ngModel)]="modelo().name" required>
+    @if(modelName.invalid && modelName.touched) {
+    <p class="Error">Model Name is required.</p>
+    }
+    <input type="text" name="modelColor" #modelColor="ngModel" id="txtColor" [(ngModel)]="modelo().color" required>
+    @if(modelColor.invalid && modelColor.touched) {
+    <p class="Error">Model Color is required.</p>
+    }
 
     <button>Guardar</button>
 </form>

@@ -1,9 +1,21 @@
 <form (ngSubmit)="onSubmit()">
-    <input type="number" name="shipId" id="txtId" [(ngModel)]="ship().id">
-    <input type="text" name="shipName" id="txtName" [(ngModel)]="ship().name">
-    <input type="text" name="shipModel" id="txtModel" [(ngModel)]="ship().model">
+    <input type="number" name="shipId" #shipId="ngModel" id="txtId" [(ngModel)]="ship().id" required>
+    @if(shipId.invalid && shipId.touched) {
+    <p class="Error">Ship ID is required.</p>
+    }
+    <input type="text" name="shipName" #shipName="ngModel" id="txtName" [(ngModel)]="ship().name" required>
+    @if(shipName.invalid && shipName.touched) {
+    <p class="Error">Ship Name is required.</p>
+    }
+    <input type="text" name="shipModel" #shipModel="ngModel" id="txtModel" [(ngModel)]="ship().model" required>
+    @if(shipModel.invalid && shipModel.touched) {
+    <p class="Error">Ship Model is required.</p>
+    }
     <input type="text" name="shipColor" id="txtColor" [(ngModel)]="ship().color">
-    <input type="text" name="shipOwner" id="txtOwner" [(ngModel)]="ship().owner">
+    <input type="text" name="shipOwner" #shipOwner="ngModel" id="txtOwner" [(ngModel)]="ship().owner" required>
+    @if(shipOwner.invalid && shipOwner.touched) {
+    <p class="Error">Ship Owner is required.</p>
+    }
 
     <button>Guardar</button>
 </form>
