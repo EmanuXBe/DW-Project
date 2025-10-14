@@ -2,7 +2,12 @@
 
 <ul>
 
-    @for(m of models(); track $index) { 
-        <li (click)="modelSelected(m)" >{{$index}} {{m.name}} {{m.color}}</li>
+    @for(m of models(); track $index) {
+    <li>{{$index}} {{m.name}} {{m.color}}
+        <a [routerLink]="['/models/view', m.id]">View</a>
+        <a [routerLink]="['/model/edit', m.id]">Edit</a>
+    </li>
     }
+    <button (click)="goToUsers()">Go to Users</button>
+    <button (click)="goToShips()">Go to Ships</button>
 </ul>

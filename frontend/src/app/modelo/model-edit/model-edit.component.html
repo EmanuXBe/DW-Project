@@ -1,0 +1,7 @@
+<form (ngSubmit)="onSubmit()">
+    <input type="number" name="modelId" id="txtId" [(ngModel)]="modelo().id">
+    <input type="text" name="modelName" id="txtName" [(ngModel)]="modelo().name">
+    <input type="text" name="modelColor" id="txtColor" [(ngModel)]="modelo().color">
+
+    <button>Guardar</button>
+</form>

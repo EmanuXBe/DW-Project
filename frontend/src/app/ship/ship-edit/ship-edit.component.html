@@ -1,0 +1,9 @@
+<form (ngSubmit)="onSubmit()">
+    <input type="number" name="shipId" id="txtId" [(ngModel)]="ship().id">
+    <input type="text" name="shipName" id="txtName" [(ngModel)]="ship().name">
+    <input type="text" name="shipModel" id="txtModel" [(ngModel)]="ship().model">
+    <input type="text" name="shipColor" id="txtColor" [(ngModel)]="ship().color">
+    <input type="text" name="shipOwner" id="txtOwner" [(ngModel)]="ship().owner">
+
+    <button>Guardar</button>
+</form>

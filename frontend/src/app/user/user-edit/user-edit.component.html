@@ -1,0 +1,8 @@
+<form (ngSubmit)="onSubmit()">
+    <input type="number" name="userId" id="txtId" [(ngModel)]="user().id">
+    <input type="text" name="userName" id="txtName" [(ngModel)]="user().name">
+    <input type="text" name="userType" id="txtType" [(ngModel)]="user().type">
+    <input type="password" name="userPassword" id="txtPassword" [(ngModel)]="user().password">
+
+    <button>Guardar</button>
+</form>

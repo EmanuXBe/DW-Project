@@ -12,27 +12,16 @@ import { ShipListComponent } from './ship/ship-list/ship-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ModelViewComponent, ModelListComponent, UserViewComponent, UserListComponent, ShipViewComponent, ShipListComponent],
+  imports: [
+    RouterOutlet,
+    ModelViewComponent,
+    ModelListComponent,
+    UserViewComponent,
+    UserListComponent,
+    ShipViewComponent,
+    ShipListComponent,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('frontend');
-
-  selectedModel = signal<Model>({});
-  selectedUser = signal<User>({});
-  selectedShip = signal<any>({});
-
-  selectModel(m: Model){
-    this.selectedModel.set(m);
-  }
-
-  selectUser(u: User){
-    this.selectedUser.set(u);
-  }
-
-  selectShip(s: any){
-    this.selectedShip.set(s);
-  }
-
-}
+export class App {}

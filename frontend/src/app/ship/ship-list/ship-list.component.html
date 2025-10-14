@@ -1,6 +1,11 @@
 <h1>Ships List</h1>
 <ul>
-    @for(s of ships(); track $index) { 
-        <li (click)="shipSelected(s)" >{{$index}} {{s.name}} {{s.model}} {{s.color}}</li>
+    @for(s of ships(); track $index) {
+    <li>{{$index}} {{s.name}} {{s.model}} {{s.color}}
+        <a [routerLink]="['/ships/view', s.id]">View</a>
+        <a [routerLink]="['/ships/edit', s.id]">Edit</a>
+    </li>
     }
+    <button (click)="goToUsers()">Go to Users</button>
+    <button (click)="goToModels()">Go to Models</button>
 </ul>
