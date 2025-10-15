@@ -11,6 +11,7 @@ import co.edu.javeriana.Proyecto_Web.model.Ship;
 import co.edu.javeriana.Proyecto_Web.model.User;
 import co.edu.javeriana.Proyecto_Web.model.Model;
 import co.edu.javeriana.Proyecto_Web.model.Cell;
+import co.edu.javeriana.Proyecto_Web.service.BoardService;
 
 @Component
 public class DBInitializer implements CommandLineRunner {
@@ -24,25 +25,28 @@ public class DBInitializer implements CommandLineRunner {
     @Autowired
     private ModelRepository modelRepository;
 
+    @Autowired
+    private BoardService boardService;
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User("Juan", "12345", "Usuario");
+        // Crear tablero de juego
+        System.out.println("Generando tablero de juego...");
+        boardService.generateDefaultMap(15, 11);
+        System.out.println("Tablero generado exitosamente");
 
+        User user = new User("Juan", "12345", "Usuario");
 
         userRepository.save(user);
 
         for (int i = 1; i < 10; i++) {
             User usuario = userRepository.save(new User("Juan" + i, "12345" + i, "Usuario"));
-            Model modelo = new Model("Galviz"+i, "Negro");
-            Ship ship = new Ship("Emavemaria"+i,2,2,modelo, usuario);
+            Model modelo = new Model("Galviz" + i, "Negro");
+            Ship ship = new Ship("Emavemaria" + i, modelo, usuario);
             userRepository.save(usuario);
             modelRepository.save(modelo);
             shipRepository.save(ship);
         }
-
-
-
 
     }
 }

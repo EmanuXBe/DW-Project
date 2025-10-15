@@ -12,12 +12,21 @@ import lombok.Setter;
 public class ShipDTO {
     private long id;
     private String name;
-    private int xspeed;
-    private int yspeed;
+
+    // Velocidad (vector de velocidad)
+    private int vx;
+    private int vy;
+
+    // Posición actual en el tablero
+    private int posX;
+    private int posY;
+
+    // Estado de la carrera
+    private int turnCount;
+    private boolean racing;
+    private boolean finished;
+
     private String model;
     private String color;
     private String owner;
-
-    
-
 }

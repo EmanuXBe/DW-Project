@@ -21,39 +21,44 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Ship {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-private long id;
+    private String name;
 
-private String name;
+    // Velocidad del barco (vector de velocidad)
+    private int vx = 0;
+    private int vy = 0;
 
+    // Posición actual del barco en el tablero
+    private int posX = 0;
+    private int posY = 0;
 
+    // Contador de turnos
+    private int turnCount = 0;
 
-private int xspeed;
+    // Estado del barco en la carrera
+    private boolean racing = false;
+    private boolean finished = false;
 
-private int yspeed;
+    @ManyToOne
+    private Model model;
 
-@ManyToOne
-private Model model;
+    @OneToOne
+    private Cell cell;
 
-@OneToOne
-private Cell cell;
+    @ManyToOne
+    private User owner;
 
-@ManyToOne 
-private User owner;
-
-
-
-public Ship(String name,int xspeed, int yspeed, Model model, User owner) {
+    public Ship(String name, Model model, User owner) {
         this.name = name;
-        this.xspeed = xspeed;
-        this.yspeed = yspeed;
+        this.vx = 0;
+        this.vy = 0;
+        this.posX = 0;
+        this.posY = 0;
         this.model = model;
         this.owner = owner;
     }
 
-
-
-    
 }

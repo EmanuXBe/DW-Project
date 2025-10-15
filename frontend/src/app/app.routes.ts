@@ -8,6 +8,10 @@ import { ModelListComponent } from './modelo/model-list/model-list.component';
 import { ShipEditComponent } from './ship/ship-edit/ship-edit.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ModelEditComponent } from './modelo/model-edit/model-edit.component';
+import { BoardViewComponent } from './board/board-view/board-view.component';
+import { BoardListComponent } from './board/board-list/board-list.component';
+import { BoardEditComponent } from './board/board-edit/board-edit.component';
+import { GameComponent } from './game/game.component';
 
 export const routes: Routes = [
   //User routes
@@ -22,5 +26,11 @@ export const routes: Routes = [
   { path: 'models', component: ModelListComponent },
   { path: 'models/view/:id', component: ModelViewComponent },
   { path: 'model/edit/:id', component: ModelEditComponent },
-  { path: '', redirectTo: 'ships', pathMatch: 'full' },
+  //Board routes
+  { path: 'boards', component: BoardListComponent },
+  { path: 'board/view/:id', component: BoardViewComponent },
+  { path: 'board/edit/:id', component: BoardEditComponent },
+  //Game routes
+  { path: 'game', component: GameComponent },
+  { path: '', redirectTo: 'boards', pathMatch: 'full' },
 ];

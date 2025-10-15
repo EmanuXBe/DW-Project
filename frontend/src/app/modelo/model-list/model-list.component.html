@@ -1,13 +1,20 @@
-<h1>Model List</h1>
-
-<ul>
-
+<h1>📦 Lista de Modelos</h1>
+<div class="models-container">
     @for(m of models(); track $index) {
-    <li>{{$index}} {{m.name}} {{m.color}}
-        <a [routerLink]="['/models/view', m.id]">View</a>
-        <a [routerLink]="['/model/edit', m.id]">Edit</a>
-    </li>
+    <div class="model-card">
+        <div class="model-info">
+            <h3>📦 {{m.name}}</h3>
+            <p>🎨 Color: {{m.color || 'N/A'}}</p>
+        </div>
+        <div class="model-actions">
+            <a [routerLink]="['/models/view', m.id]" class="btn btn-view">👁️ Ver</a>
+            <a [routerLink]="['/model/edit', m.id]" class="btn btn-edit">✏️ Editar</a>
+        </div>
+    </div>
     }
-    <button (click)="goToUsers()">Go to Users</button>
-    <button (click)="goToShips()">Go to Ships</button>
-</ul>
+</div>
+
+<div class="navigation-buttons">
+    <button (click)="goToUsers()" class="btn">👥 Ir a Usuarios</button>
+    <button (click)="goToShips()" class="btn">🚢 Ir a Barcos</button>
+</div>

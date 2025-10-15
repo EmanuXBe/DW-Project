@@ -1,0 +1,145 @@
+/* Estilos para model-list */
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin: 24px 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Contenedor de cards */
+.models-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Card individual */
+.model-card {
+  background: white;
+  border: 2px solid #e1e8ed;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.model-card:hover {
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Información del modelo */
+.model-info {
+  margin-bottom: 16px;
+}
+
+.model-info h3 {
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.model-info p {
+  margin: 8px 0;
+  color: #5a6c7d;
+  font-size: 14px;
+}
+
+/* Acciones */
+.model-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* Botones */
+.btn {
+  padding: 10px 16px;
+  border: 2px solid #e1e8ed;
+  background: white;
+  color: #5a6c7d;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+  min-width: 90px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.btn-view:hover {
+  background: #3498db;
+  color: white;
+}
+
+.btn-edit {
+  border-color: #f39c12;
+  color: #f39c12;
+}
+
+.btn-edit:hover {
+  background: #f39c12;
+  color: white;
+}
+
+/* Botones de navegación */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.navigation-buttons .btn,
+.navigation-buttons button {
+  padding: 14px 28px;
+  font-size: 16px;
+  min-width: 160px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navigation-buttons .btn:hover,
+.navigation-buttons button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .models-container {
+    grid-template-columns: 1fr;
+  }
+
+  .model-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

@@ -11,7 +11,6 @@
     @if(shipModel.invalid && shipModel.touched) {
     <p class="Error">Ship Model is required.</p>
     }
-    <input type="text" name="shipColor" id="txtColor" [(ngModel)]="ship().color">
     <input type="text" name="shipOwner" #shipOwner="ngModel" id="txtOwner" [(ngModel)]="ship().owner" required>
     @if(shipOwner.invalid && shipOwner.touched) {
     <p class="Error">Ship Owner is required.</p>

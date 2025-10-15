@@ -1,6 +1,17 @@
-/* Estilos para ship-list */
+/* Estilos para board-list - Mockup Style */
 
-h1 {
+.container {
+  /* Estilos específicos para board-list si se necesitan */
+
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #f5f7fa;
+  min-height: 100vh;
+}
+
+h1,
+h2 {
   color: #2c3e50;
   text-align: center;
   margin: 24px 0;
@@ -8,16 +19,14 @@ h1 {
   font-weight: 600;
 }
 
-/* Contenedor de cards */
-.ships-container {
+.boards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
   padding: 20px 0;
 }
 
-/* Card individual */
-.ship-card {
+.board-card {
   background: white;
   border: 2px solid #e1e8ed;
   border-radius: 12px;
@@ -26,65 +35,36 @@ h1 {
   transition: all 0.2s ease;
 }
 
-.ship-card:hover {
+.board-card:hover {
   border-color: #3498db;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   transform: translateY(-2px);
 }
 
-/* Información del barco */
-.ship-info {
+.board-info {
   margin-bottom: 16px;
 }
 
-.ship-info h3 {
+.board-info h3 {
   color: #2c3e50;
   margin: 0 0 12px 0;
   font-size: 20px;
   font-weight: 600;
 }
 
-.ship-info p {
+.board-info p {
   margin: 8px 0;
   color: #5a6c7d;
   font-size: 14px;
 }
 
-/* Estados especiales */
-.status-racing {
-  color: #e67e22;
-  font-weight: 600;
-  background: #fef5e7;
-  padding: 6px 12px;
-  border-radius: 6px;
-  display: inline-block;
-  font-size: 13px;
-}
-
-.status-idle {
-  color: #7f8c8d;
-  font-style: italic;
-}
-
-.status-finished {
-  color: #27ae60;
-  font-weight: 600;
-  background: #e8f8f5;
-  padding: 6px 12px;
-  border-radius: 6px;
-  display: inline-block;
-  font-size: 13px;
-}
-
-/* Acciones */
-.ship-actions {
+.board-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   margin-top: 16px;
 }
 
-/* Botones */
 .btn {
   padding: 10px 16px;
   border: 2px solid #e1e8ed;
@@ -126,17 +106,6 @@ h1 {
   color: white;
 }
 
-.btn-play {
-  border-color: #27ae60;
-  color: #27ae60;
-}
-
-.btn-play:hover {
-  background: #27ae60;
-  color: white;
-}
-
-/* Botones de navegación */
 .navigation-buttons {
   display: flex;
   justify-content: center;
@@ -145,7 +114,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-.navigation-buttons .btn,
 .navigation-buttons button {
   padding: 14px 28px;
   font-size: 16px;
@@ -159,19 +127,21 @@ h1 {
   transition: all 0.2s ease;
 }
 
-.navigation-buttons .btn:hover,
 .navigation-buttons button:hover {
   background: #2980b9;
   transform: translateY(-2px);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .ships-container {
+  .container {
+    padding: 16px;
+  }
+
+  .boards-container {
     grid-template-columns: 1fr;
   }
 
-  .ship-actions {
+  .board-actions {
     flex-direction: column;
   }
 

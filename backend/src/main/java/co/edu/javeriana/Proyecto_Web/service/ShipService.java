@@ -39,7 +39,7 @@ public class ShipService {
                 .map(ShipMapper::toDto);
     }
 
-    public void save(ShipDTO shipDTO){
+    public void save(ShipDTO shipDTO) {
         Ship ship;
         if (shipDTO.getId() != 0) {
             ship = shipRepository.findById(shipDTO.getId()).orElseGet(Ship::new);
@@ -49,8 +49,13 @@ public class ShipService {
         }
 
         ship.setName(shipDTO.getName());
-        ship.setXspeed(shipDTO.getXspeed());
-        ship.setYspeed(shipDTO.getYspeed());
+        ship.setVx(shipDTO.getVx());
+        ship.setVy(shipDTO.getVy());
+        ship.setPosX(shipDTO.getPosX());
+        ship.setPosY(shipDTO.getPosY());
+        ship.setTurnCount(shipDTO.getTurnCount());
+        ship.setRacing(shipDTO.isRacing());
+        ship.setFinished(shipDTO.isFinished());
 
         // Handle model name and color according to spec (reuse if exists)
         String modelName = shipDTO.getModel();

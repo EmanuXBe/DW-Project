@@ -1,14 +1,20 @@
-<div>
-    <h1>User List</h1>
-    <ul>
+<h1>👥 Lista de Usuarios</h1>
+<div class="users-container">
+    @for(u of users(); track $index) {
+    <div class="user-card">
+        <div class="user-info">
+            <h3>👤 {{u.name}}</h3>
+            <p>🏷️ Tipo: {{u.type || 'N/A'}}</p>
+        </div>
+        <div class="user-actions">
+            <a [routerLink]="['/user/view', u.id]" class="btn btn-view">👁️ Ver</a>
+            <a [routerLink]="['/user/edit', u.id]" class="btn btn-edit">✏️ Editar</a>
+        </div>
+    </div>
+    }
+</div>
 
-        @for(u of users(); track $index) {
-        <li>{{$index}} {{u.name}} {{u.type}}
-            <a [routerLink]="['/user/view', u.id]">View</a>
-            <a [routerLink]="['/user/edit', u.id]">Edit</a>
-        </li>
-        }
-        <button (click)="goToShips()">Go to Ships</button>
-        <button (click)="goToModels()">Go to Models</button>
-    </ul>
+<div class="navigation-buttons">
+    <button (click)="goToShips()" class="btn">🚢 Ir a Barcos</button>
+    <button (click)="goToModels()" class="btn">📦 Ir a Modelos</button>
 </div>

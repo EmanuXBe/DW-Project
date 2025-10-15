@@ -1,0 +1,52 @@
+<div class="board-view-container">
+    <h1>Mapa del Juego</h1>
+
+    @if(board()) {
+    <div class="board-info">
+        <p><strong>ID del Mapa:</strong> {{board()!.id}}</p>
+        <p><strong>Dimensiones:</strong> {{board()!.width}} x {{board()!.height}}</p>
+    </div>
+
+    <div class="game-board">
+        @for(row of boardGrid(); track $index) {
+        <div class="board-row">
+            @for(cell of row; track cell.x + '-' + cell.y) {
+            <div class="cell" [ngClass]="getCellClass(cell)"
+                [title]="'X: ' + cell.x + ', Y: ' + cell.y + ' - Tipo: ' + cell.type">
+                <span class="cell-symbol">{{getCellSymbol(cell)}}</span>
+                @if(cell.shipName) {
+                <span class="ship-name">{{cell.shipName}}</span>
+                }
+            </div>
+            }
+        </div>
+        }
+    </div>
+
+    <div class="legend">
+        <h3>Leyenda:</h3>
+        <div class="legend-item">
+            <span class="legend-symbol cell-water"></span>
+            <span>Agua (navegable)</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-symbol cell-wall">❌</span>
+            <span>Pared (destruye barco)</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-symbol cell-start">🟢</span>
+            <span>Partida (inicio)</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-symbol cell-finish">🏁</span>
+            <span>Meta (fin)</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-symbol cell-ship">🚢</span>
+            <span>Barco</span>
+        </div>
+    </div>
+
+    <button class="btn-back" (click)="goBack()">⬅️ Volver a la Lista</button>
+    }
+</div>

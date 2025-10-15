@@ -1,0 +1,22 @@
+<h1>🗺️ Lista de Tableros</h1>
+<div class="boards-container">
+    @for(board of boards(); track board.id) {
+    <div class="board-card">
+        <div class="board-info">
+            <h3>🗺️ Tablero #{{board.id}}</h3>
+            <p>📏 Tamaño: {{board.width}}x{{board.height}}</p>
+            <p>🔢 Celdas: {{board.cells?.length || 0}}</p>
+        </div>
+        <div class="board-actions">
+            <a [routerLink]="['/board/view', board.id]" class="btn btn-view">👁️ Ver Mapa</a>
+            <a [routerLink]="['/board/edit', board.id]" class="btn btn-edit">✏️ Editar</a>
+        </div>
+    </div>
+    }
+</div>
+
+<div class="navigation-buttons">
+    <button (click)="goToUsers()" class="btn">👥 Ir a Usuarios</button>
+    <button (click)="goToShips()" class="btn">🚢 Ir a Barcos</button>
+    <button (click)="goToModels()" class="btn">📦 Ir a Modelos</button>
+</div>

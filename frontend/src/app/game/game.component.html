@@ -1,0 +1,123 @@
+<div class="game-container">
+    <header class="game-header">
+        <div class="header-top">
+            <button class="btn-back" (click)="router.navigate(['/ships'])">
+                ⬅️ Volver a Barcos
+            </button>
+            <h1>🏁 Carrera de Barcos</h1>
+        </div>
+
+        @if (gameStarted() && !gameOver()) {
+        <section class="game-info">
+            <div class="info-item"><strong>Barco:</strong> {{ ship().name }}</div>
+            <div class="info-item"><strong>Turno:</strong> {{ ship().turnCount }}</div>
+            <div class="info-item"><strong>Velocidad:</strong> v = ({{ ship().vx }}, {{ ship().vy }})</div>
+            <div class="info-item"><strong>Posición:</strong> ({{ ship().posX }}, {{ ship().posY }})</div>
+        </section>
+        }
+
+        @if (gameOver()) {
+        <section class="game-over card">
+            <h2>🎉 ¡Juego Terminado!</h2>
+            <p>Completaste la carrera en <strong>{{ ship().turnCount }}</strong> turnos.</p>
+            <button class="btn-primary" (click)="router.navigate(['/ships'])">
+                Volver a Barcos
+            </button>
+        </section>
+        }
+    </header>
+
+    @if (gameStarted() && !gameOver() && possibleMoves()) {
+    <main class="game-layout">
+        <!-- TABLERO -->
+        <section class="board-section card">
+            <div class="game-board">
+                @for (row of grid(); track $index) {
+                <div class="board-row">
+                    @for (cell of row; track cell.id) {
+                    <div class="cell" [class]="getCellClass(cell, cell.x!, cell.y!)"
+                        (click)="onCellClick(cell, cell.x!, cell.y!)" [title]="cell.type || ''">
+                        {{ getCellContent(cell, cell.x!, cell.y!) }}
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </section>
+
+        <!-- CONTROLES -->
+        <aside class="controls-section">
+            <div class="card">
+                <section class="move-options">
+                    <h4>🧭 Opciones de Movimiento</h4>
+                    <div class="move-buttons">
+                        @for (position of possibleMoves()!.possiblePositions; track $index) {
+                        <button class="btn-move" [class.btn-move-valid]="position.valid"
+                            [class.btn-move-invalid]="!position.valid"
+                            [class.btn-move-selected]="selectedMove()?.deltaVx === position.deltaVx && selectedMove()?.deltaVy === position.deltaVy"
+                            [disabled]="!position.valid" (click)="selectMove(position)">
+                            <div class="move-label">
+                                @if (position.deltaVx === 0 && position.deltaVy === 0) {
+                                ⏸️ Mantener
+                                } @else if (position.deltaVx === 1 && position.deltaVy === 0) {
+                                ➡️ +vx
+                                } @else if (position.deltaVx === 0 && position.deltaVy === 1) {
+                                ⬆️ +vy
+                                } @else if (position.deltaVx === -1 && position.deltaVy === 0) {
+                                ⬅️ -vx
+                                } @else if (position.deltaVx === 0 && position.deltaVy === -1) {
+                                ⬇️ -vy
+                                }
+                            </div>
+                            <div class="move-details">v: ({{ position.vx }}, {{ position.vy }})</div>
+                            <div class="move-position">pos: ({{ position.x }}, {{ position.y }})</div>
+                            @if (!position.valid) {
+                            <div class="move-error">❌ {{ position.invalidReason }}</div>
+                            }
+                        </button>
+                        }
+                    </div>
+
+                    @if (selectedMove()) {
+                    <button class="btn-execute" (click)="executeMove()">✅ Confirmar Jugada</button>
+                    } @else {
+                    <p class="hint">👆 Selecciona una opción</p>
+                    }
+
+                    <button class="btn-restart" (click)="restartGame()">🔄 Reiniciar</button>
+                </section>
+
+                <section class="legend">
+                    <h4>📋 Leyenda</h4>
+                    <ul class="legend-list">
+                        <li><span class="legend-icon">🚢</span> Barco</li>
+                        <li><span class="legend-icon">🏁</span> Inicio</li>
+                        <li><span class="legend-icon">🏆</span> Meta</li>
+                        <li><span class="legend-icon">🧱</span> Muro</li>
+                        <li><span class="legend-icon">🌊</span> Agua</li>
+                    </ul>
+                </section>
+            </div>
+        </aside>
+    </main>
+    } @else if (gameStarted() && !gameOver()) {
+    <div class="board-section-centered">
+        <table class="board-grid">
+            @for (row of grid(); track $index) {
+            <tr>
+                @for (cell of row; track cell.id) {
+                <td [class]="getCellClass(cell, cell.x!, cell.y!)" (click)="onCellClick(cell, cell.x!, cell.y!)"
+                    [title]="cell.type || ''">
+                    <span class="cell-content">{{ getCellContent(cell, cell.x!, cell.y!) }}</span>
+                </td>
+                }
+            </tr>
+            }
+        </table>
+    </div>
+    } @else {
+    <div class="board-section-centered">
+        <p>Cargando juego...</p>
+    </div>
+    }
+</div>
