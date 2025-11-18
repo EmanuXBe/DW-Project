@@ -1,22 +1,24 @@
-<h1>🗺️ Lista de Tableros</h1>
-<div class="boards-container">
+<h1 id="board-list-title">🗺️ Lista de Tableros</h1>
+<div class="boards-container" id="board-list-container">
     @for(board of boards(); track board.id) {
-    <div class="board-card">
+    <div class="board-card" [attr.id]="'board-list-item-' + board.id">
         <div class="board-info">
-            <h3>🗺️ Tablero #{{board.id}}</h3>
-            <p>📏 Tamaño: {{board.width}}x{{board.height}}</p>
-            <p>🔢 Celdas: {{board.cells?.length || 0}}</p>
+            <h3 [attr.id]="'board-list-id-' + board.id">🗺️ Tablero #{{board.id}}</h3>
+            <p [attr.id]="'board-list-size-' + board.id">📏 Tamaño: {{board.width}}x{{board.height}}</p>
+            <p [attr.id]="'board-list-cells-' + board.id">🔢 Celdas: {{board.cells?.length || 0}}</p>
         </div>
         <div class="board-actions">
-            <a [routerLink]="['/board/view', board.id]" class="btn btn-view">👁️ Ver Mapa</a>
-            <a [routerLink]="['/board/edit', board.id]" class="btn btn-edit">✏️ Editar</a>
+            <a [routerLink]="['/board/view', board.id]" class="btn btn-view"
+                [attr.id]="'board-list-view-btn-' + board.id">👁️ Ver Mapa</a>
+            <a [routerLink]="['/board/edit', board.id]" class="btn btn-edit"
+                [attr.id]="'board-list-edit-btn-' + board.id">✏️ Editar</a>
         </div>
     </div>
     }
 </div>
 
 <div class="navigation-buttons">
-    <button (click)="goToUsers()" class="btn">👥 Ir a Usuarios</button>
-    <button (click)="goToShips()" class="btn">🚢 Ir a Barcos</button>
-    <button (click)="goToModels()" class="btn">📦 Ir a Modelos</button>
+    <button (click)="goToUsers()" class="btn" id="board-list-nav-users">👥 Ir a Usuarios</button>
+    <button (click)="goToShips()" class="btn" id="board-list-nav-ships">🚢 Ir a Barcos</button>
+    <button (click)="goToModels()" class="btn" id="board-list-nav-models">📦 Ir a Modelos</button>
 </div>

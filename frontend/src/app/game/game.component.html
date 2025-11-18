@@ -1,26 +1,29 @@
-<div class="game-container">
+<div class="game-container" id="game-container">
     <header class="game-header">
         <div class="header-top">
-            <button class="btn-back" (click)="router.navigate(['/ships'])">
+            <button class="btn-back" (click)="router.navigate(['/ships'])" id="game-btn-back">
                 ⬅️ Volver a Barcos
             </button>
-            <h1>🏁 Carrera de Barcos</h1>
+            <h1 id="game-title">🏁 Carrera de Barcos</h1>
         </div>
 
         @if (gameStarted() && !gameOver()) {
-        <section class="game-info">
-            <div class="info-item"><strong>Barco:</strong> {{ ship().name }}</div>
-            <div class="info-item"><strong>Turno:</strong> {{ ship().turnCount }}</div>
-            <div class="info-item"><strong>Velocidad:</strong> v = ({{ ship().vx }}, {{ ship().vy }})</div>
-            <div class="info-item"><strong>Posición:</strong> ({{ ship().posX }}, {{ ship().posY }})</div>
+        <section class="game-info" id="game-info">
+            <div class="info-item" id="game-info-ship"><strong>Barco:</strong> {{ ship().name }}</div>
+            <div class="info-item" id="game-info-turn"><strong>Turno:</strong> {{ ship().turnCount }}</div>
+            <div class="info-item" id="game-info-velocity"><strong>Velocidad:</strong> v = ({{ ship().vx }}, {{
+                ship().vy }})</div>
+            <div class="info-item" id="game-info-position"><strong>Posición:</strong> ({{ ship().posX }}, {{ ship().posY
+                }})</div>
         </section>
         }
 
         @if (gameOver()) {
-        <section class="game-over card">
-            <h2>🎉 ¡Juego Terminado!</h2>
-            <p>Completaste la carrera en <strong>{{ ship().turnCount }}</strong> turnos.</p>
-            <button class="btn-primary" (click)="router.navigate(['/ships'])">
+        <section class="game-over card" id="game-over-section">
+            <h2 id="game-over-title">🎉 ¡Juego Terminado!</h2>
+            <p id="game-over-message">Completaste la carrera en <strong id="game-over-turns">{{ ship().turnCount
+                    }}</strong> turnos.</p>
+            <button class="btn-primary" (click)="router.navigate(['/ships'])" id="game-over-btn-back">
                 Volver a Barcos
             </button>
         </section>
@@ -30,13 +33,14 @@
     @if (gameStarted() && !gameOver() && possibleMoves()) {
     <main class="game-layout">
         <!-- TABLERO -->
-        <section class="board-section card">
-            <div class="game-board">
+        <section class="board-section card" id="game-board-section">
+            <div class="game-board" id="game-board">
                 @for (row of grid(); track $index) {
                 <div class="board-row">
                     @for (cell of row; track cell.id) {
                     <div class="cell" [class]="getCellClass(cell, cell.x!, cell.y!)"
-                        (click)="onCellClick(cell, cell.x!, cell.y!)" [title]="cell.type || ''">
+                        [attr.id]="'game-cell-' + cell.x + '-' + cell.y" (click)="onCellClick(cell, cell.x!, cell.y!)"
+                        [title]="cell.type || ''">
                         {{ getCellContent(cell, cell.x!, cell.y!) }}
                     </div>
                     }
@@ -46,15 +50,16 @@
         </section>
 
         <!-- CONTROLES -->
-        <aside class="controls-section">
+        <aside class="controls-section" id="game-controls">
             <div class="card">
-                <section class="move-options">
-                    <h4>🧭 Opciones de Movimiento</h4>
-                    <div class="move-buttons">
+                <section class="move-options" id="game-move-options">
+                    <h4 id="game-move-title">🧭 Opciones de Movimiento</h4>
+                    <div class="move-buttons" id="game-move-buttons">
                         @for (position of possibleMoves()!.possiblePositions; track $index) {
                         <button class="btn-move" [class.btn-move-valid]="position.valid"
                             [class.btn-move-invalid]="!position.valid"
                             [class.btn-move-selected]="selectedMove()?.deltaVx === position.deltaVx && selectedMove()?.deltaVy === position.deltaVy"
+                            [attr.id]="'game-move-btn-' + position.deltaVx + '-' + position.deltaVy"
                             [disabled]="!position.valid" (click)="selectMove(position)">
                             <div class="move-label">
                                 @if (position.deltaVx === 0 && position.deltaVy === 0) {
@@ -79,12 +84,13 @@
                     </div>
 
                     @if (selectedMove()) {
-                    <button class="btn-execute" (click)="executeMove()">✅ Confirmar Jugada</button>
+                    <button class="btn-execute" (click)="executeMove()" id="game-btn-execute">✅ Confirmar
+                        Jugada</button>
                     } @else {
-                    <p class="hint">👆 Selecciona una opción</p>
+                    <p class="hint" id="game-hint">👆 Selecciona una opción</p>
                     }
 
-                    <button class="btn-restart" (click)="restartGame()">🔄 Reiniciar</button>
+                    <button class="btn-restart" (click)="restartGame()" id="game-btn-restart">🔄 Reiniciar</button>
                 </section>
 
                 <section class="legend">

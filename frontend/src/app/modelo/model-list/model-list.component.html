@@ -1,20 +1,22 @@
-<h1>📦 Lista de Modelos</h1>
-<div class="models-container">
+<h1 id="model-list-title">📦 Lista de Modelos</h1>
+<div class="models-container" id="model-list-container">
     @for(m of models(); track $index) {
-    <div class="model-card">
+    <div class="model-card" [attr.id]="'model-list-item-' + m.id">
         <div class="model-info">
-            <h3>📦 {{m.name}}</h3>
-            <p>🎨 Color: {{m.color || 'N/A'}}</p>
+            <h3 [attr.id]="'model-list-name-' + m.id">📦 {{m.name}}</h3>
+            <p [attr.id]="'model-list-color-' + m.id">🎨 Color: {{m.color || 'N/A'}}</p>
         </div>
         <div class="model-actions">
-            <a [routerLink]="['/models/view', m.id]" class="btn btn-view">👁️ Ver</a>
-            <a [routerLink]="['/model/edit', m.id]" class="btn btn-edit">✏️ Editar</a>
+            <a [routerLink]="['/models/view', m.id]" class="btn btn-view" [attr.id]="'model-list-view-btn-' + m.id">👁️
+                Ver</a>
+            <a [routerLink]="['/model/edit', m.id]" class="btn btn-edit" [attr.id]="'model-list-edit-btn-' + m.id">✏️
+                Editar</a>
         </div>
     </div>
     }
 </div>
 
 <div class="navigation-buttons">
-    <button (click)="goToUsers()" class="btn">👥 Ir a Usuarios</button>
-    <button (click)="goToShips()" class="btn">🚢 Ir a Barcos</button>
+    <button (click)="goToUsers()" class="btn" id="model-list-nav-users">👥 Ir a Usuarios</button>
+    <button (click)="goToShips()" class="btn" id="model-list-nav-ships">🚢 Ir a Barcos</button>
 </div>
