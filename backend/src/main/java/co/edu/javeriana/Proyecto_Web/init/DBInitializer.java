@@ -2,6 +2,8 @@ package co.edu.javeriana.Proyecto_Web.init;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import co.edu.javeriana.Proyecto_Web.repository.ModelRepository;
@@ -13,7 +15,9 @@ import co.edu.javeriana.Proyecto_Web.model.Model;
 import co.edu.javeriana.Proyecto_Web.model.Cell;
 import co.edu.javeriana.Proyecto_Web.service.BoardService;
 
+@Configuration
 @Component
+@Profile({ "default" })
 public class DBInitializer implements CommandLineRunner {
 
     @Autowired
@@ -29,6 +33,7 @@ public class DBInitializer implements CommandLineRunner {
     private BoardService boardService;
 
     @Override
+
     public void run(String... args) throws Exception {
         // Crear tablero de juego
         System.out.println("Generando tablero de juego...");
