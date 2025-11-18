@@ -2,9 +2,9 @@
 
     <h1>User View</h1>
     <ul>
-        <li>ID: {{ user().id }}</li>
-        <li>Name: {{ user().name }}</li>
-        <li>Type: {{ user().type }}</li>
+        <li id="user-view-id">ID: {{ user().id }}</li>
+        <li id="user-view-name">Name: {{ user().name }}</li>
+        <li id="user-view-type">Type: {{ user().type }}</li>
     </ul>
     <button class="btn-back" (click)="goBack()">⬅️ Volver</button>
 

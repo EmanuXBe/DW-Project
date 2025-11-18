@@ -1,17 +1,17 @@
 <form (ngSubmit)="onSubmit()">
-    <input type="number" name="shipId" #shipId="ngModel" id="txtId" [(ngModel)]="ship().id" required>
+    <input type="number" name="shipId" #shipId="ngModel" id="ship-edit-id" [(ngModel)]="ship().id" required>
     @if(shipId.invalid && shipId.touched) {
     <p class="Error">Ship ID is required.</p>
     }
-    <input type="text" name="shipName" #shipName="ngModel" id="txtName" [(ngModel)]="ship().name" required>
+    <input type="text" name="shipName" #shipName="ngModel" id="ship-edit-name" [(ngModel)]="ship().name" required>
     @if(shipName.invalid && shipName.touched) {
     <p class="Error">Ship Name is required.</p>
     }
-    <input type="text" name="shipModel" #shipModel="ngModel" id="txtModel" [(ngModel)]="ship().model" required>
+    <input type="text" name="shipModel" #shipModel="ngModel" id="ship-edit-model" [(ngModel)]="ship().model" required>
     @if(shipModel.invalid && shipModel.touched) {
     <p class="Error">Ship Model is required.</p>
     }
-    <input type="text" name="shipOwner" #shipOwner="ngModel" id="txtOwner" [(ngModel)]="ship().owner" required>
+    <input type="text" name="shipOwner" #shipOwner="ngModel" id="ship-edit-owner" [(ngModel)]="ship().owner" required>
     @if(shipOwner.invalid && shipOwner.touched) {
     <p class="Error">Ship Owner is required.</p>
     }

@@ -3,8 +3,8 @@
 
     @if(board()) {
     <div class="board-info">
-        <p><strong>ID del Mapa:</strong> {{board()!.id}}</p>
-        <p><strong>Dimensiones:</strong> {{board()!.width}} x {{board()!.height}}</p>
+        <p id="board-view-id"><strong>ID del Mapa:</strong> {{board()!.id}}</p>
+        <p id="board-view-dimensions"><strong>Dimensiones:</strong> {{board()!.width}} x {{board()!.height}}</p>
     </div>
 
     <div class="game-board">

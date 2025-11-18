@@ -1,17 +1,17 @@
 <form (ngSubmit)="onSubmit()">
-    <input type="number" name="userId" #userId="ngModel" id="txtId" [(ngModel)]="user().id" required>
+    <input type="number" name="userId" #userId="ngModel" id="user-edit-id" [(ngModel)]="user().id" required>
     @if(userId.invalid && userId.touched) {
     <p class="Error">User ID is required.</p>
     }
-    <input type="text" name="userName" #userName="ngModel" id="txtName" [(ngModel)]="user().name" required>
+    <input type="text" name="userName" #userName="ngModel" id="user-edit-name" [(ngModel)]="user().name" required>
     @if(userName.invalid && userName.touched) {
     <p class="Error">User Name is required.</p>
     }
-    <input type="text" name="userType" #userType="ngModel" id="txtType" [(ngModel)]="user().type" required>
+    <input type="text" name="userType" #userType="ngModel" id="user-edit-type" [(ngModel)]="user().type" required>
     @if(userType.invalid && userType.touched) {
     <p class="Error">User Type is required.</p>
     }
-    <input type="password" name="userPassword" id="txtPassword" [(ngModel)]="user().password">
+    <input type="password" name="userPassword" id="user-edit-password" [(ngModel)]="user().password">
 
     <button>Guardar</button>
 </form>
