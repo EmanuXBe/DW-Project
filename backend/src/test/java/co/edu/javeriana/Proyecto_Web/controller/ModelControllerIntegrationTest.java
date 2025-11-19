@@ -51,7 +51,7 @@ public class ModelControllerIntegrationTest {
 
     private String loginAndGetToken(String username, String password) {
         LoginDTO login = new LoginDTO(username, password);
-        JwtAuthenticationResponse resp = webTestClient.post().uri("/api/auth/login")
+        JwtAuthenticationResponse resp = webTestClient.post().uri("/auth/login")
                 .bodyValue(login)
                 .exchange()
                 .expectStatus().isOk()
