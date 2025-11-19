@@ -8,29 +8,28 @@ import { ModelListComponent } from './modelo/model-list/model-list.component';
 import { ShipEditComponent } from './ship/ship-edit/ship-edit.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { ModelEditComponent } from './modelo/model-edit/model-edit.component';
-import { BoardViewComponent } from './board/board-view/board-view.component';
-import { BoardListComponent } from './board/board-list/board-list.component';
-import { BoardEditComponent } from './board/board-edit/board-edit.component';
 import { GameComponent } from './game/game.component';
+import { GameSetupComponent } from './game/game-setup/game-setup.component';
+import { adminGuard } from './guards/admin.guard';
+import { userGuard } from './guards/user.guard';
+import { LoginComponent } from './security/login/login.component';
 
 export const routes: Routes = [
-  //User routes
-  { path: 'users', component: UserListComponent },
-  { path: 'user/view/:id', component: UserViewComponent },
-  { path: 'user/edit/:id', component: UserEditComponent },
-  //Ship routes
-  { path: 'ships', component: ShipListComponent },
-  { path: 'ships/view/:id', component: ShipViewComponent },
-  { path: 'ships/edit/:id', component: ShipEditComponent },
-  //Model routes
-  { path: 'models', component: ModelListComponent },
-  { path: 'models/view/:id', component: ModelViewComponent },
-  { path: 'model/edit/:id', component: ModelEditComponent },
-  //Board routes
-  { path: 'boards', component: BoardListComponent },
-  { path: 'board/view/:id', component: BoardViewComponent },
-  { path: 'board/edit/:id', component: BoardEditComponent },
-  //Game routes
-  { path: 'game', component: GameComponent },
-  { path: '', redirectTo: 'boards', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  //User routes - SOLO ADMIN
+  { path: 'users', component: UserListComponent, canActivate: [adminGuard] },
+  { path: 'user/view/:id', component: UserViewComponent, canActivate: [adminGuard] },
+  { path: 'user/edit/:id', component: UserEditComponent, canActivate: [adminGuard] },
+  //Ship routes - SOLO ADMIN
+  { path: 'ships', component: ShipListComponent, canActivate: [adminGuard] },
+  { path: 'ships/view/:id', component: ShipViewComponent, canActivate: [adminGuard] },
+  { path: 'ships/edit/:id', component: ShipEditComponent, canActivate: [adminGuard] },
+  //Model routes - SOLO ADMIN
+  { path: 'models', component: ModelListComponent, canActivate: [adminGuard] },
+  { path: 'models/view/:id', component: ModelViewComponent, canActivate: [adminGuard] },
+  { path: 'model/edit/:id', component: ModelEditComponent, canActivate: [adminGuard] },
+  //Game routes - SOLO USER
+  { path: 'game-setup', component: GameSetupComponent, canActivate: [userGuard] },
+  { path: 'game', component: GameComponent, canActivate: [userGuard] },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];

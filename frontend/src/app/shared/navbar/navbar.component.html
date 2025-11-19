@@ -1,0 +1,26 @@
+<nav class="navbar" *ngIf="isAuthenticated">
+    <div class="navbar-container">
+        <div class="navbar-brand">
+            <a [routerLink]="isAdmin ? '/users' : '/game-setup'" class="brand-link">⛵ Regata Online</a>
+        </div>
+
+        <!-- Menú - Mostrar TODOS los botones para todos los usuarios -->
+        <div class="navbar-menu">
+            <a routerLink="/users" routerLinkActive="active" class="nav-link">👥 Usuarios</a>
+            <a routerLink="/ships" routerLinkActive="active" class="nav-link">🚢 Barcos</a>
+            <a routerLink="/models" routerLinkActive="active" class="nav-link">📦 Modelos</a>
+            <a routerLink="/game-setup" routerLinkActive="active" class="nav-link">🎮 Jugar</a>
+        </div>
+
+        <div class="navbar-user">
+            <span class="user-info">
+                <span class="user-icon">{{ isAdmin ? '👑' : '👤' }}</span>
+                <span class="username">{{ username }}</span>
+                <span class="user-role">({{ role }})</span>
+            </span>
+            <button (click)="logout()" class="btn-logout" id="navbar-logout-btn">
+                🚪 Cerrar Sesión
+            </button>
+        </div>
+    </div>
+</nav>

@@ -2,8 +2,15 @@ package co.edu.javeriana.Proyecto_Web.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.edu.javeriana.Proyecto_Web.model.User;
@@ -61,5 +68,27 @@ public class UserService {
         user.setType(dto.getType());
         user.setPassword(dto.getPassword());
         return UserMapper.toDto(userRepository.save(user));
+    }
+
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) {
+                User user = userRepository.findByName(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+                Collection<GrantedAuthority> authorities = new ArrayList<>();
+                if (user.getType() != null && user.getType().equalsIgnoreCase("admin")) {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                } else {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                }
+
+                return new org.springframework.security.core.userdetails.User(
+                        user.getName(),
+                        user.getPassword(),
+                        authorities);
+            }
+        };
     }
 }

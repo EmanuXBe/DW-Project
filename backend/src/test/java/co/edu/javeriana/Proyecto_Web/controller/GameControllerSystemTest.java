@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,7 +17,6 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
-import com.microsoft.playwright.options.WaitForSelectorState;
 
 import co.edu.javeriana.Proyecto_Web.model.Board;
 import co.edu.javeriana.Proyecto_Web.model.Cell;
@@ -48,6 +48,9 @@ public class GameControllerSystemTest {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Playwright playwright;
     private Browser browser;
     private BrowserContext browserContext;
@@ -60,8 +63,8 @@ public class GameControllerSystemTest {
 
     @BeforeEach
     void init() {
-        // Crear usuario de prueba
-        testUser = userRepository.save(new User("testplayer", "password", "user"));
+        // Crear usuario de prueba con contraseña hasheada con BCrypt
+        testUser = userRepository.save(new User("testplayer", passwordEncoder.encode("password123"), "user"));
 
         // Crear modelo de prueba
         testModel = modelRepository.save(new Model("Test Model", "Red"));
@@ -132,15 +135,40 @@ public class GameControllerSystemTest {
 
     @Test
     void testPlayerWinsGame() throws InterruptedException {
-        // Navegar a la página del juego
-        String gameUrl = String.format("http://localhost:4200/game?shipId=%d&boardId=%d",
-                testShip.getId(), testBoard.getId());
-        page.navigate(gameUrl);
+        // Paso 1: Navegar a la página de login
+        page.navigate("http://localhost:4200/login");
+
+        // Paso 2: Esperar a que el formulario de login esté visible
+        Locator usernameInput = page.locator("input[name='username']");
+        usernameInput.waitFor();
+
+        // Paso 3: Llenar el formulario de login
+        usernameInput.fill("testplayer");
+        Locator passwordInput = page.locator("input[name='password']");
+        passwordInput.fill("password123");
+
+        // Paso 4: Hacer clic en el botón de login
+        Locator loginButton = page.locator("button[type='submit']");
+        loginButton.click();
+
+        // Paso 5: Esperar a que se complete el login y se redirija a /game-setup
+        Thread.sleep(2000);
+
+        // Paso 6: Esperar a que el botón "Iniciar Regata" esté disponible
+        Locator startButton = page.locator("#game-setup-start-btn");
+        startButton.waitFor(new Locator.WaitForOptions().setTimeout(5000));
+
+        // Paso 7: Hacer clic en el botón para iniciar el juego
+        startButton.click();
+
+        // Paso 8: Esperar a que navegue a la página del juego
+        Thread.sleep(2000);
+        page.waitForURL("**/game?shipId=*", new Page.WaitForURLOptions().setTimeout(5000));
 
         // Esperar a que el juego cargue
         Locator gameTitle = page.locator("#game-title");
         gameTitle.waitFor();
-        PlaywrightAssertions.assertThat(gameTitle).containsText("Carrera de Barcos");
+        PlaywrightAssertions.assertThat(gameTitle).containsText("Regata Online");
 
         // Esperar a que la información del juego esté visible
         Locator gameInfo = page.locator("#game-info");

@@ -1,11 +1,6 @@
 <div class="game-container" id="game-container">
     <header class="game-header">
-        <div class="header-top">
-            <button class="btn-back" (click)="router.navigate(['/ships'])" id="game-btn-back">
-                ⬅️ Volver a Barcos
-            </button>
-            <h1 id="game-title">🏁 Carrera de Barcos</h1>
-        </div>
+        <h1 id="game-title">🏁 Regata Online</h1>
 
         @if (gameStarted() && !gameOver()) {
         <section class="game-info" id="game-info">

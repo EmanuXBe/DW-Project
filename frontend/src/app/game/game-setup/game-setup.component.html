@@ -1,0 +1,40 @@
+<div class="game-setup-container">
+    <h1>⛵ Prepara tu Regata</h1>
+
+    @if (loading()) {
+    <div class="loading-state">
+        <p>⏳ Cargando tu barco...</p>
+    </div>
+    } @else if (error()) {
+    <div class="error-state">
+        <p class="error-message">❌ {{ error() }}</p>
+    </div>
+    } @else if (myShip()) {
+    <div class="ship-display">
+        <h2>🚢 Tu Barco</h2>
+        <div class="ship-card">
+            <div class="ship-icon">🚢</div>
+            <h3>{{ myShip()!.name }}</h3>
+            <div class="ship-details">
+                <p><strong>Modelo:</strong> {{ myShip()!.model }}</p>
+                @if (myShip()!.color) {
+                <p><strong>Color:</strong> <span class="color-badge" [style.background-color]="myShip()!.color">{{
+                        myShip()!.color }}</span></p>
+                }
+            </div>
+        </div>
+
+        <div class="game-info">
+            <h3>📋 Información del Juego</h3>
+            <p>🗺️ Se utilizará el tablero predeterminado</p>
+            <p>🎯 Posición inicial: Se seleccionará al iniciar</p>
+        </div>
+
+        <div class="action-panel">
+            <button id="game-setup-start-btn" class="start-game-btn" (click)="startGame()">
+                🎮 Iniciar Regata
+            </button>
+        </div>
+    </div>
+    }
+</div>

@@ -1,7 +1,7 @@
-import { Component, signal, inject, output } from '@angular/core';
+import { Component, signal, inject, output, OnInit } from '@angular/core';
 import { User } from '../../model/user';
 import { UserService } from '../../shared/user.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -9,27 +9,23 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css',
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
   users = signal<User[]>([]);
-  router = inject(Router);
 
   userClicked = output<User>();
   userService = inject(UserService);
 
   ngOnInit() {
-    this.userService.findAll().subscribe((data) => this.users.set(data));
+    this.userService.findAll().subscribe({
+      next: (data) => this.users.set(data),
+      error: (err) => {
+        console.error('Error loading users:', err);
+        // El interceptor ya muestra el alert, aquí solo logueamos
+      },
+    });
   }
 
   userSelected(u: User) {
     this.userClicked.emit(u);
-  }
-  /*gotoUsers() {
-    this.router.navigate(['/users/list']);
-  }*/
-  goToShips() {
-    this.router.navigate(['/ships']);
-  }
-  goToModels() {
-    this.router.navigate(['/models']);
   }
 }

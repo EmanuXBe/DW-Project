@@ -42,20 +42,17 @@ public class ShipService {
     public void save(ShipDTO shipDTO) {
         Ship ship;
         if (shipDTO.getId() != 0) {
-            ship = shipRepository.findById(shipDTO.getId()).orElseGet(Ship::new);
-            ship.setId(shipDTO.getId());
+            // Para actualización, obtener la entidad fresca de la base de datos
+            ship = shipRepository.findById(shipDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Ship not found with id: " + shipDTO.getId()));
         } else {
             ship = new Ship();
         }
 
+        // Solo actualizar los campos que vienen del formulario de edición
+        // NO actualizar campos del juego (posX, posY, vx, vy, racing, finished,
+        // turnCount)
         ship.setName(shipDTO.getName());
-        ship.setVx(shipDTO.getVx());
-        ship.setVy(shipDTO.getVy());
-        ship.setPosX(shipDTO.getPosX());
-        ship.setPosY(shipDTO.getPosY());
-        ship.setTurnCount(shipDTO.getTurnCount());
-        ship.setRacing(shipDTO.isRacing());
-        ship.setFinished(shipDTO.isFinished());
 
         // Handle model name and color according to spec (reuse if exists)
         String modelName = shipDTO.getModel();
@@ -69,6 +66,20 @@ public class ShipService {
                     });
         }
         ship.setModel(model);
+
+        // Permitir cambiar el owner tanto en creación como en edición
+        if (shipDTO.getOwner() != null && !shipDTO.getOwner().isEmpty()) {
+            try {
+                Long ownerId = Long.parseLong(shipDTO.getOwner());
+                var owner = userRepository.findById(ownerId).orElse(null);
+                ship.setOwner(owner);
+            } catch (NumberFormatException e) {
+                // Si no es un número, podría ser el nombre del owner
+                // Intentar buscar por nombre
+                var owner = userRepository.findByName(shipDTO.getOwner()).orElse(null);
+                ship.setOwner(owner);
+            }
+        }
 
         shipRepository.save(ship);
     }
@@ -106,5 +117,11 @@ public class ShipService {
         return shipRepository.findAllByModel_NameStartingWithIgnoreCase(searchText).stream()
                 .map(ShipMapper::toDto)
                 .toList();
+    }
+
+    public Optional<ShipDTO> findShipByOwnerUsername(String username) {
+        return userRepository.findByName(username)
+                .flatMap(shipRepository::findByOwner)
+                .map(ShipMapper::toDto);
     }
 }

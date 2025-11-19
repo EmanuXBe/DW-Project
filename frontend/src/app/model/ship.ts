@@ -28,6 +28,7 @@ export class Ship {
 
   // Relaciones con otros modelos (pueden ser objetos o strings/numbers)
   model?: Model | string | number;
+  color?: string; // Color del modelo (campo adicional del DTO)
   owner?: Owner | string | number;
 }
 

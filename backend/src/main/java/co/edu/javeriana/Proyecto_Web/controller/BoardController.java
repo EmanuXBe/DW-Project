@@ -3,6 +3,7 @@ package co.edu.javeriana.Proyecto_Web.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import co.edu.javeriana.Proyecto_Web.dto.BoardDTO;
@@ -19,18 +20,21 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
     @GetMapping("/list")
     @Operation(summary = "List all boards", description = "Retrieve a list of all game boards")
     public List<BoardDTO> listBoards() {
         return boardService.listBoards();
     }
 
+    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
     @GetMapping("/view/{id}")
     @Operation(summary = "View board details", description = "Retrieve details of a specific board by ID")
     public BoardDTO viewBoard(@Parameter(description = "ID of the board to retrieve") @PathVariable Long id) {
         return boardService.searchBoard(id).orElseThrow();
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping
     @Operation(summary = "Create a new board", description = "Save a new game board")
     public BoardDTO createBoard(@Parameter(description = "Board data to save") @RequestBody BoardDTO dto) {
@@ -38,18 +42,21 @@ public class BoardController {
         return boardService.save(dto);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping
     @Operation(summary = "Update a board", description = "Update an existing game board")
     public BoardDTO updateBoard(@Parameter(description = "Updated board data") @RequestBody BoardDTO dto) {
         return boardService.save(dto);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a board", description = "Delete a specific board by ID")
     public void deleteBoard(@Parameter(description = "ID of the board to delete") @PathVariable Long id) {
         boardService.delete(id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/generate")
     @Operation(summary = "Generate default map", description = "Generate a default game map with specified dimensions")
     public BoardDTO generateDefaultMap(

@@ -44,16 +44,4 @@ export class BoardListComponent implements OnInit {
       },
     });
   }
-
-  goToUsers() {
-    this.router.navigate(['/users']);
-  }
-
-  goToShips() {
-    this.router.navigate(['/ships']);
-  }
-
-  goToModels() {
-    this.router.navigate(['/models']);
-  }
 }

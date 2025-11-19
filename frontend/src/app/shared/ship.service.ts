@@ -39,6 +39,10 @@ export class ShipService {
 
   // ============= GAME METHODS =============
 
+  getMyShip(): Observable<Ship> {
+    return this.http.get<Ship>(`${this.baseUrl}/ship/my-ship`);
+  }
+
   startRace(shipId: number, boardId: number, startX: number, startY: number): Observable<Ship> {
     const params = new HttpParams()
       .set('boardId', boardId.toString())

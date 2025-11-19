@@ -44,8 +44,8 @@ export class GameComponent implements OnInit {
       this.boardId.set(+boardIdParam);
       this.loadGame();
     } else {
-      alert('Ship ID y Board ID son requeridos');
-      this.router.navigate(['/ships']);
+      alert('Por favor selecciona un barco y tablero para jugar');
+      this.router.navigate(['/game-setup']);
     }
   }
 

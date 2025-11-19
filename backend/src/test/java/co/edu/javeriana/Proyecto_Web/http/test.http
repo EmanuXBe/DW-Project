@@ -1,0 +1,358 @@
+### Admin Login (testuser es ADMIN)
+# @name loginAdmin
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "password"
+}
+
+### User Login (testuser1 es USER)
+# @name loginUser
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "testuser1",
+    "password": "contraseña"
+}
+
+### Login incorrecto
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "wrongpassword"
+}
+
+### Petición sin token - Denegado (403)
+GET http://localhost:8080/user/list
+
+### Petición con token inválido - Denegado (403)
+GET http://localhost:8080/user/list
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.invalidtoken.invalidtoken
+
+### =====================================================
+### ADMIN OPERATIONS - Usar token de Admin
+### =====================================================
+
+### Admin: Listar usuarios - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+GET http://localhost:8080/user/list
+Authorization: Bearer {{tokenAdmin}}
+
+### Admin: Ver usuario específico - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+GET http://localhost:8080/user/view/1
+Authorization: Bearer {{tokenAdmin}}
+
+### Admin: Buscar usuarios - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+GET http://localhost:8080/user/search?nombre=testuser
+Authorization: Bearer {{tokenAdmin}}
+
+### Admin: Crear usuario - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+POST http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "name": "newuser",
+    "password": "newpass",
+    "type": "user"
+}
+
+### Admin: Actualizar usuario - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+PUT http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "id": 2,
+    "name": "updateduser",
+    "password": "updatedpass",
+    "type": "user"
+}
+
+### Admin: Eliminar usuario - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+DELETE http://localhost:8080/user/3
+Authorization: Bearer {{tokenAdmin}}
+
+### =====================================================
+### USER OPERATIONS - Usar token de User
+### =====================================================
+
+### User: Listar usuarios - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/user/list
+Authorization: Bearer {{tokenUser}}
+
+### User: Ver usuario específico - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/user/view/1
+Authorization: Bearer {{tokenUser}}
+
+### User: Crear usuario - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "name": "hacker",
+    "password": "hack",
+    "type": "admin"
+}
+
+### User: Actualizar usuario - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+PUT http://localhost:8080/user
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "id": 1,
+    "name": "hacked",
+    "password": "hacked",
+    "type": "admin"
+}
+
+### User: Eliminar usuario - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+DELETE http://localhost:8080/user/1
+Authorization: Bearer {{tokenUser}}
+
+### =====================================================
+### BOARD OPERATIONS
+### =====================================================
+
+### Admin: Crear tablero - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+POST http://localhost:8080/board
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "width": 10,
+    "height": 10
+}
+
+### User: Listar tableros - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/board/list
+Authorization: Bearer {{tokenUser}}
+
+### User: Ver tablero específico - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/board/view/1
+Authorization: Bearer {{tokenUser}}
+
+### User: Generar tablero - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/board/generate
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "width": 15,
+    "height": 15
+}
+
+### User: Actualizar tablero - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+PUT http://localhost:8080/board
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "id": 1,
+    "width": 20,
+    "height": 20
+}
+
+### Admin: Actualizar tablero - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+PUT http://localhost:8080/board
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "id": 1,
+    "width": 20,
+    "height": 20
+}
+
+### User: Eliminar tablero - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+DELETE http://localhost:8080/board/1
+Authorization: Bearer {{tokenUser}}
+
+### Admin: Eliminar tablero - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+DELETE http://localhost:8080/board/1
+Authorization: Bearer {{tokenAdmin}}
+
+### =====================================================
+### MODEL OPERATIONS
+### =====================================================
+
+### User: Listar modelos - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/model
+Authorization: Bearer {{tokenUser}}
+
+### User: Ver modelo específico - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/model/1
+Authorization: Bearer {{tokenUser}}
+
+### User: Buscar modelos - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/model/search?nombre=Falcon
+Authorization: Bearer {{tokenUser}}
+
+### Admin: Crear modelo - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+POST http://localhost:8080/model
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "name": "X-Wing",
+    "color": "Red"
+}
+
+### User: Crear modelo - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/model
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "name": "TIE Fighter",
+    "color": "Black"
+}
+
+### Admin: Actualizar modelo - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+PUT http://localhost:8080/model/1
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "id": 1,
+    "name": "Millennium Falcon Updated",
+    "color": "Silver"
+}
+
+### Admin: Eliminar modelo - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+DELETE http://localhost:8080/model/1
+Authorization: Bearer {{tokenAdmin}}
+
+### =====================================================
+### SHIP OPERATIONS
+### =====================================================
+
+### User: Listar naves - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/ship
+Authorization: Bearer {{tokenUser}}
+
+### User: Ver nave específica - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/ship/1
+Authorization: Bearer {{tokenUser}}
+
+### User: Buscar naves - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/ship/search?nombre=Enterprise
+Authorization: Bearer {{tokenUser}}
+
+### Admin: Crear nave - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+POST http://localhost:8080/ship
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "name": "USS Enterprise",
+    "modelId": 1,
+    "ownerId": 1,
+    "posx": 5,
+    "posy": 5,
+    "vx": 0,
+    "vy": 0,
+    "racing": false,
+    "finished": false,
+    "turnCount": 0
+}
+
+### User: Crear nave - Denegado (403)
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/ship
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "name": "Rebel Ship",
+    "modelId": 1,
+    "ownerId": 2,
+    "posx": 3,
+    "posy": 3,
+    "vx": 0,
+    "vy": 0,
+    "racing": false,
+    "finished": false,
+    "turnCount": 0
+}
+
+### =====================================================
+### GAME OPERATIONS - Ambos pueden acceder
+### =====================================================
+
+### User: Iniciar carrera - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/ship/1/start-race
+Authorization: Bearer {{tokenUser}}
+
+### User: Obtener movimientos posibles - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+GET http://localhost:8080/ship/1/possible-moves
+Authorization: Bearer {{tokenUser}}
+
+### User: Ejecutar movimiento - Autorizado
+@tokenUser = {{loginUser.response.body.$.token}}
+POST http://localhost:8080/ship/1/move
+Content-Type: application/json
+Authorization: Bearer {{tokenUser}}
+
+{
+    "x": 1,
+    "y": 1
+}
+
+### Admin: Ejecutar movimiento - Autorizado
+@tokenAdmin = {{loginAdmin.response.body.$.token}}
+POST http://localhost:8080/ship/1/move
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
+
+{
+    "x": 2,
+    "y": 2
+}
+
+### =====================================================
+### H2 Console
+### =====================================================
+
+### Acceder a H2 Console
+GET http://localhost:8080/h2

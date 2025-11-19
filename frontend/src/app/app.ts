@@ -9,6 +9,7 @@ import { User } from './model/user';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { ShipViewComponent } from './ship/ship-view/ship-view.component';
 import { ShipListComponent } from './ship/ship-list/ship-list.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { ShipListComponent } from './ship/ship-list/ship-list.component';
     UserListComponent,
     ShipViewComponent,
     ShipListComponent,
+    NavbarComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

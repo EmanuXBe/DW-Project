@@ -4,18 +4,9 @@
     <div class="ship-card" [attr.id]="'ship-list-item-' + s.id">
         <div class="ship-info">
             <h3 [attr.id]="'ship-list-name-' + s.id">🚢 {{s.name}}</h3>
-            @if(s.model && typeof s.model === 'object' && 'name' in s.model) {
-            <p [attr.id]="'ship-list-model-' + s.id">📦 Modelo: {{s.model.name || 'N/A'}}</p>
-            <p [attr.id]="'ship-list-color-' + s.id">🎨 Color: {{s.model.color || 'N/A'}}</p>
-            } @else {
             <p [attr.id]="'ship-list-model-' + s.id">📦 Modelo: {{s.model || 'N/A'}}</p>
-            <p [attr.id]="'ship-list-color-' + s.id">🎨 Color: N/A</p>
-            }
-            @if(s.owner && typeof s.owner === 'object' && 'name' in s.owner) {
-            <p [attr.id]="'ship-list-owner-' + s.id">👤 Dueño: {{s.owner.name || 'N/A'}}</p>
-            } @else {
+            <p [attr.id]="'ship-list-color-' + s.id">🎨 Color: {{s.color || 'N/A'}}</p>
             <p [attr.id]="'ship-list-owner-' + s.id">👤 Dueño: {{s.owner || 'N/A'}}</p>
-            }
             @if(s.racing) {
             <p class="status-racing" [attr.id]="'ship-list-racing-' + s.id">🏁 En carrera - Turno: {{s.turnCount}}</p>
             <p [attr.id]="'ship-list-velocity-' + s.id">⚡ Velocidad: ({{s.vx}}, {{s.vy}})</p>
@@ -32,16 +23,7 @@
                 Ver</a>
             <a [routerLink]="['/ships/edit', s.id]" class="btn btn-edit" [attr.id]="'ship-list-edit-btn-' + s.id">✏️
                 Editar</a>
-            <a [routerLink]="['/game']" [queryParams]="{shipId: s.id, boardId: firstBoardId()}" class="btn btn-play"
-                [attr.id]="'ship-list-play-btn-' + s.id">🎮
-                Jugar</a>
         </div>
     </div>
     }
-</div>
-
-<div class="navigation-buttons">
-    <button (click)="goToUsers()" class="btn" id="ship-list-nav-users">👥 Ir a Usuarios</button>
-    <button (click)="goToModels()" class="btn" id="ship-list-nav-models">📦 Ir a Modelos</button>
-    <button (click)="goToBoards()" class="btn" id="ship-list-nav-boards">🗺️ Ir a Tableros</button>
 </div>
